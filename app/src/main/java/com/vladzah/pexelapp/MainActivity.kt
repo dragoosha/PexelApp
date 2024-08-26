@@ -11,6 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.vladzah.pexelapp.ui.navigation.AppNavigation
+import com.vladzah.pexelapp.ui.screens.home.HomeScreen
 import com.vladzah.pexelapp.ui.theme.PexelAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -24,7 +26,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     installSplashScreen()
-                    Greeting("Android")
+                    AppNavigation()
                 }
             }
         }
