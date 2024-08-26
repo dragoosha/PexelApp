@@ -14,4 +14,7 @@ object Icons {
         @Composable get() = painterResource(id = R.drawable.ic_bookmark_inactive)
     val BookMarkActive: Painter
         @Composable get() = painterResource(id = R.drawable.ic_bookmark_active)
+
+    val SearchIcon: Painter
+        @Composable get() = painterResource(id = R.drawable.icon_search)
 }

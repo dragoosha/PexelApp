@@ -14,7 +14,10 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.vladzah.pexelapp.ui.navigation.AppNavigation
 import com.vladzah.pexelapp.ui.screens.home.HomeScreen
 import com.vladzah.pexelapp.ui.theme.PexelAppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
