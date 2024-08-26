@@ -1,4 +1,4 @@
-package com.example.pexelapp.ui.theme
+package com.vladzah.pexelapp.ui.theme
 
 import android.app.Activity
 import android.os.Build
