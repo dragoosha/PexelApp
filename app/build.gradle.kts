@@ -60,6 +60,9 @@ dependencies {
     //Navigation
     implementation("androidx.navigation:navigation-runtime-ktx:2.7.7")
 
+    //Coil
+    implementation("io.coil-kt:coil-compose:2.7.0")
+
     //Hilt
     kapt("com.google.dagger:hilt-android-compiler:2.48")
     implementation("com.google.dagger:hilt-android:2.48")

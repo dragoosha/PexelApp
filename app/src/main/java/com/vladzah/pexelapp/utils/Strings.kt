@@ -1,6 +1,6 @@
 package com.vladzah.pexelapp.utils
 
-import com.example.pexelapp.R
+import com.vladzah.pexelapp.R
 
 object Strings {
     val HomeString
