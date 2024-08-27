@@ -15,3 +15,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "PexelApp"
 include(":app")
+include(":data")
+include(":domain")

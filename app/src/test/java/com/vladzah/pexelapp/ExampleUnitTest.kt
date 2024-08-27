@@ -1,4 +1,4 @@
-package com.example.pexelapp
+package com.vladzah.pexelapp
 
 import org.junit.Test
 
