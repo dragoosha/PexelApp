@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.data"
+    namespace = "com.vladzah.data"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.data"
+        applicationId = "com.vladzah.data"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -54,6 +54,10 @@ dependencies {
     //Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    //Paging
+    implementation("androidx.paging:paging-runtime-ktx:3.3.2")
+    implementation("androidx.paging:paging-compose:3.3.2")
 
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.appcompat:appcompat:1.7.0")

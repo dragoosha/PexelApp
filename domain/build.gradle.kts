@@ -1,14 +1,16 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
-    namespace = "com.example.domain"
+    namespace = "com.vladzah.domain"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.domain"
+        applicationId = "com.vladzah.domain"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -36,6 +38,16 @@ android {
 }
 
 dependencies {
+
+    //Paging
+    implementation("androidx.paging:paging-runtime-ktx:3.3.2")
+    implementation("androidx.paging:paging-compose:3.3.2")
+
+    //Hilt
+    kapt("com.google.dagger:hilt-android-compiler:2.48")
+    implementation("com.google.dagger:hilt-android:2.48")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+
 
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.appcompat:appcompat:1.7.0")

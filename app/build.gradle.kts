@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.pexelapp"
+    namespace = "com.vladzah.pexelapp"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.pexelapp"
+        applicationId = "com.vladzah.pexelapp"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
