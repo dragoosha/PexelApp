@@ -1,20 +1,22 @@
 package com.vladzah.local
 
+import androidx.paging.PagingSource
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Upsert
+import kotlinx.coroutines.flow.Flow
 
 interface PexelDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertPhoto(photo: PexelEntity)
+    @Upsert
+    suspend fun upsertAll(recipes: List<PexelEntity>)
 
-    @Query("SELECT * FROM pexelentity")
-    fun getPhotos(): List<PexelEntity>
+    @Query("SELECT * FROM PexelEntity")
+    fun pagingSource(): PagingSource<Int, PexelEntity>
 
-    @Query("DELETE FROM pexelentity WHERE id = :id")
-    fun deletePhoto(id: Long)
+    @Query("DELETE FROM PexelEntity")
+    suspend fun clearAll()
 
-    @Query("SELECT isBookmarked FROM pexelentity WHERE id = :id")
-    fun isBookmarked(id: Long): Boolean
+    @Query("SELECT * FROM PexelEntity WHERE id = :id")
+    fun getFromDbById(id: Int): Flow<PexelEntity>
 }

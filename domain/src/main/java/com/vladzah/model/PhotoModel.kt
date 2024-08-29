@@ -1,15 +1,11 @@
-package com.vladzah.local
+package com.vladzah.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
-@Entity
-data class PexelEntity(
-    @PrimaryKey val id: Long,
+data class PhotoModel(
+    val id: Long,
     val urlOrig: String,
     val urlComp: String,
     val width: Int,
     val height: Int,
     val photographer: String,
     val isBookmarked: Boolean
-)
+){}
