@@ -2,18 +2,13 @@ package com.vladzah.remote
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
-import com.vladzah.interfaces.PhotoModel
 import com.vladzah.local.PexelDatabase
 import com.vladzah.local.PexelEntity
 import com.vladzah.mappers.toEntity
 import com.vladzah.remote.dto.QueryPhotosDto
-import kotlinx.coroutines.flow.Flow
 import retrofit2.HttpException
 import java.io.IOException
 

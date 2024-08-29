@@ -18,4 +18,8 @@ interface PexelApi {
     @GET("collections/featured")
     suspend fun getFeaturedCollections(
     ): QueryCollectionsDto
+
+    companion object {
+        const val BASE_URL = ""
+    }
 }
