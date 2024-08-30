@@ -1,3 +1,6 @@
+import com.android.build.api.variant.BuildConfigField
+import java.util.Properties
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -33,6 +36,7 @@ android {
         jvmTarget = "1.8"
     }
 }
+
 
 dependencies {
 

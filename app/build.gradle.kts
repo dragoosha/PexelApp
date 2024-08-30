@@ -41,6 +41,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -53,9 +54,14 @@ android {
 }
 
 dependencies {
+    implementation(project(":domain"))
 
     //Splash Screen
     implementation("androidx.core:core-splashscreen:1.0.1")
+
+    //Paging
+    implementation("androidx.paging:paging-runtime-ktx:3.3.2")
+    implementation("androidx.paging:paging-compose:3.3.2")
 
     //Navigation
     implementation("androidx.navigation:navigation-runtime-ktx:2.7.7")
