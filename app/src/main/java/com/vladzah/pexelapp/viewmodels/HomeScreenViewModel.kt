@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.map
 import com.vladzah.model.PhotoModel
+import com.vladzah.pexelapp.events.HomeScreenEvents
 import com.vladzah.pexelapp.models.PhotoUiModel
 import com.vladzah.pexelapp.models.TopicUiModel
 import com.vladzah.pexelapp.models.toTopicUiModel
@@ -49,7 +50,7 @@ class HomeScreenViewModel @Inject constructor(
         }
     }
 
-    fun setQuery(newQuery: String) {
+    private fun setQuery(newQuery: String) {
         _query.value = newQuery
     }
 
@@ -66,6 +67,13 @@ class HomeScreenViewModel @Inject constructor(
                         _photos.value = transformedPagingData
                     }
             }
+        }
+    }
+
+    fun onEvent(event: HomeScreenEvents) {
+        when(event){
+            is HomeScreenEvents.onNewQuery -> setQuery(event.query)
+            is HomeScreenEvents.onExploreClicked -> observePhotos()
         }
     }
 
