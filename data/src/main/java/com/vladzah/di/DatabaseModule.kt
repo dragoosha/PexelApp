@@ -41,12 +41,7 @@ class DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit() : Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(PexelApi.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
+    fun provideHeaderInterceptor(): HeaderInterceptor = HeaderInterceptor()
 
     @Provides
     @Singleton
@@ -55,11 +50,17 @@ class DatabaseModule {
     ): OkHttpClient =
         OkHttpClient.Builder()
             .addInterceptor(headerInterceptor)
-            .addInterceptor(retryInterceptor)
-            .addInterceptor(loggingInterceptor)
-            .addInterceptor(cacheInterceptor)
             .build()
 
+    @Provides
+    @Singleton
+    fun provideRetrofit(client: OkHttpClient) : Retrofit {
+        return Retrofit.Builder()
+            .client(client)
+            .baseUrl(PexelApi.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
     @Provides
     @Singleton
     fun provideApi(): PexelApi {

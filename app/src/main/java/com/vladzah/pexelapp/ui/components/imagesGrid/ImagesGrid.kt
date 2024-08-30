@@ -17,11 +17,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.paging.compose.LazyPagingItems
 import coil.compose.AsyncImage
+import com.vladzah.pexelapp.models.PhotoUiModel
 
 @Composable
 fun ImagesGrid(
-    photosList: List<PhotoUi>
+    photosList: LazyPagingItems<PhotoUiModel>
 ) {
     Box(modifier = Modifier) {
         LazyVerticalStaggeredGrid(
@@ -29,11 +31,9 @@ fun ImagesGrid(
             modifier = Modifier
                 .fillMaxSize()
         ) {
-            items(photosList.size) {index ->
-                PhotoCard(
-                    photosList[index]
-                ) {
-
+            items(photosList.itemCount) {index ->
+                photosList[index]?.let { photo ->
+                    PhotoCard(photo = photo) {}
                 }
                 Log.d("CheckPhoto", "Iam in items")
 
@@ -44,7 +44,7 @@ fun ImagesGrid(
 
 @Composable
 fun PhotoCard(
-    photo: PhotoUi,
+    photo: PhotoUiModel,
     onclick: () -> Unit
 ) {
     val ratio = countSize(photo.width, photo.height)
@@ -53,7 +53,7 @@ fun PhotoCard(
         modifier = Modifier
             .aspectRatio(ratio)
             .fillMaxWidth()
-            .clickable { onclick()}
+            .clickable { onclick() }
             .padding(12.dp)
             .background(
                 color = MaterialTheme.colorScheme.secondaryContainer,
@@ -79,11 +79,3 @@ fun countSize(width: Int, height: Int): Float {
 
     return ratio
 }
-
-
-data class PhotoUi (
-    val url: String,
-    val width: Int,
-    val height: Int,
-    val photographer: String
-)

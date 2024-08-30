@@ -23,7 +23,7 @@ class PhotosRemoteMediator(
         state: PagingState<Int, PexelEntity>,
     ): MediatorResult {
         return try {
-            val loadKey = when (loadType) {
+            val loadKey = when(loadType) {
                 LoadType.REFRESH -> 1
                 LoadType.PREPEND -> return MediatorResult.Success(
                     endOfPaginationReached = true
@@ -40,7 +40,7 @@ class PhotosRemoteMediator(
             }
 
             val photos: QueryPhotosDto = pexelApi.getPhotosByQuery(
-                page = loadKey.toInt(),
+                page = loadKey,
                 pageCount = state.config.pageSize,
                 query = query
             )
