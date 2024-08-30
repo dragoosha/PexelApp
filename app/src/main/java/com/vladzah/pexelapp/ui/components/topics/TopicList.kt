@@ -27,7 +27,7 @@ import com.vladzah.pexelapp.ui.theme.PexelAppTheme
 @Composable
 fun TopicList(
     list: List<TopicUiModel>,
-    onClick: () -> Unit
+    onClick: (TopicUiModel) -> Unit
 ) {
     LazyRow(
         modifier = Modifier
@@ -48,7 +48,7 @@ fun TopicList(
 @Composable
 fun Topic(
     topic: TopicUiModel,
-    onClick: () -> Unit
+    onClick: (TopicUiModel) -> Unit
 ) {
     val boxColor : Color
     val textColor: Color
@@ -71,7 +71,7 @@ fun Topic(
                 shape = RoundedCornerShape(100)
             )
             .clip(RoundedCornerShape(100))
-            .clickable { onClick() }
+            .clickable { onClick(topic) }
             .padding(horizontal = 20.dp, vertical = 10.dp)
 
     )

@@ -23,6 +23,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.vladzah.pexelapp.events.HomeScreenEvents
 import com.vladzah.pexelapp.models.PhotoUiModel
 import com.vladzah.pexelapp.models.TopicUiModel
 import com.vladzah.pexelapp.ui.components.imagesGrid.ImagesGrid
@@ -40,7 +41,8 @@ fun HomeScreen(
     val titles = viewModel.titles.collectAsState().value
     HomeScreenLayout(
         photos = photos,
-        titles = titles
+        titles = titles,
+        viewModel = viewModel
     )
 
 }
@@ -48,7 +50,8 @@ fun HomeScreen(
 @Composable
 fun HomeScreenLayout(
     photos : LazyPagingItems<PhotoUiModel>,
-    titles : List<TopicUiModel>
+    titles : List<TopicUiModel>,
+    viewModel: HomeScreenViewModel
 ) {
     Column(
         modifier = Modifier
@@ -65,26 +68,22 @@ fun HomeScreenLayout(
             query = query,
             onQueryChange = { newData ->
                 query = newData
+                viewModel.onEvent(HomeScreenEvents.onNewQuery(query))
             }
         )
         Log.d("TopicList", "$titles")
 
-        TopicList(list = titles) {
-
+        TopicList(list = titles) {topic ->
+            query = topic.label
+            viewModel.onEvent(HomeScreenEvents.onNewQuery(query))
         }
 
-        val context = LocalContext.current
-        LaunchedEffect(key1 = photos.loadState) {
-            if (photos.loadState.refresh is LoadState.Error) {
-                Toast.makeText(
-                    context,
-                    "Error:" + (photos.loadState.refresh as LoadState.Error).error.message,
-                    Toast.LENGTH_LONG
-                ).show()
+        ImagesGrid(
+            photosList = photos,
+            onExploreClick = {
+                viewModel.onEvent(HomeScreenEvents.onExploreClicked)
             }
-        }
-
-        ImagesGrid(photosList = photos)
+        )
 
     }
 }
