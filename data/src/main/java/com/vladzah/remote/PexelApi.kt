@@ -1,6 +1,7 @@
 package com.vladzah.remote
 
 import com.vladzah.data.BuildConfig
+import com.vladzah.remote.Constants.CURATED_NUMBER
 import com.vladzah.remote.Constants.FEATURED_NUMBER
 import com.vladzah.remote.dto.QueryCollectionsDto
 import com.vladzah.remote.dto.QueryPhotosDto
@@ -23,7 +24,7 @@ interface PexelApi {
     suspend fun getPopularPhotos(
         @Header("Authorization") apiKey: String = BuildConfig.API_KEY,
         @Query("page") page: Int,
-        @Query("per_page") pageCount: Int
+        @Query("per_page") pageCount: Int = CURATED_NUMBER
     ): QueryPhotosDto
 
     @GET("collections/featured")
