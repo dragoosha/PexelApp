@@ -18,6 +18,13 @@ interface PexelApi {
         @Query("per_page") pageCount: Int
     ): QueryPhotosDto
 
+    @GET("curated")
+    suspend fun getPopularPhotos(
+        @Header("Authorization") apiKey: String = BuildConfig.API_KEY,
+        @Query("page") page: Int,
+        @Query("per_page") pageCount: Int
+    ): QueryPhotosDto
+
     @GET("collections/featured")
     suspend fun getFeaturedCollections(
     ): QueryCollectionsDto

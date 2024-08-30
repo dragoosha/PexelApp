@@ -8,11 +8,15 @@ import androidx.paging.map
 import com.vladzah.model.PhotoModel
 import com.vladzah.interfaces.PhotoRepository
 import com.vladzah.local.PexelDatabase
+import com.vladzah.mappers.toEntity
 import com.vladzah.mappers.toModel
 import com.vladzah.remote.PexelApi
 import com.vladzah.remote.PhotosRemoteMediator
+import com.vladzah.remote.dto.QueryPhotosDto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -31,7 +35,9 @@ class PhotosRepositoryImpl @Inject constructor(
                     pexelApi = pexelApi,
                     query = query
                 ),
-                pagingSourceFactory = { pexelDatabase.pexelDao.pagingSource() }
+                pagingSourceFactory = {
+                    pexelDatabase.pexelDao.pagingSource()
+                }
             )
 
             pager.flow.map { pagingData ->
@@ -39,6 +45,7 @@ class PhotosRepositoryImpl @Inject constructor(
             }
         }
     }
+
 
     override suspend fun getFeatureCollections(): List<String> {
         TODO()
