@@ -48,7 +48,12 @@ class PhotosRepositoryImpl @Inject constructor(
 
 
     override suspend fun getFeatureCollections(): List<String> {
-        TODO()
+        return withContext(Dispatchers.IO) {
+            return@withContext pexelApi.getFeaturedCollections().collection
+                    .map { collectionDTO ->
+                        collectionDTO.title
+            }
+        }
     }
 
 }

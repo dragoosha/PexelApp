@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Room
 import com.vladzah.local.PexelDao
 import com.vladzah.local.PexelDatabase
-import com.vladzah.local.migrations.MIGRATION_1_2
 import com.vladzah.remote.PexelApi
 import com.vladzah.remote.interceptors.HeaderInterceptor
 import com.vladzah.remote.interceptors.cacheInterceptor

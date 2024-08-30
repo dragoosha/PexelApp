@@ -11,17 +11,22 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.vladzah.pexelapp.models.TopicUiModel
 import com.vladzah.pexelapp.ui.theme.PexelAppTheme
 
 
 @Composable
 fun TopicList(
-    list: List<TopicUi>,
+    list: List<TopicUiModel>,
     onClick: () -> Unit
 ) {
     LazyRow(
@@ -42,7 +47,7 @@ fun TopicList(
 }
 @Composable
 fun Topic(
-    topic: TopicUi,
+    topic: TopicUiModel,
     onClick: () -> Unit
 ) {
     val boxColor : Color
@@ -71,13 +76,7 @@ fun Topic(
 
     )
 
-
 }
-
-data class TopicUi (
-    val label: String,
-    val isSelected: Boolean
-)
 
 @Preview(showBackground = true)
 @Composable
@@ -88,11 +87,11 @@ fun PreviewTopic() {
                 .background(MaterialTheme.colorScheme.background)
                 .padding(12.dp),
         ) {
-            Topic(topic = TopicUi("Ice", true)) {
+            Topic(topic = TopicUiModel("Ice", true)) {
 
             }
             Spacer(modifier = Modifier.width(10.dp))
-            Topic(topic = TopicUi("Ice", false)) {
+            Topic(topic = TopicUiModel("Ice", false)) {
 
             }
 

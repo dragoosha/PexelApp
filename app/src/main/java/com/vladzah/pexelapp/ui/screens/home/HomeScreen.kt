@@ -1,5 +1,6 @@
 package com.vladzah.pexelapp.ui.screens.home
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -22,10 +24,10 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.vladzah.pexelapp.models.PhotoUiModel
+import com.vladzah.pexelapp.models.TopicUiModel
 import com.vladzah.pexelapp.ui.components.imagesGrid.ImagesGrid
 import com.vladzah.pexelapp.ui.components.search.SearchBarComponent
 import com.vladzah.pexelapp.ui.components.topics.TopicList
-import com.vladzah.pexelapp.ui.components.topics.TopicUi
 import com.vladzah.pexelapp.ui.theme.PexelAppTheme
 import com.vladzah.pexelapp.viewmodels.HomeScreenViewModel
 
@@ -35,13 +37,18 @@ fun HomeScreen(
     viewModel: HomeScreenViewModel = hiltViewModel(),
 ) {
     val photos = viewModel.photos.collectAsLazyPagingItems()
-    HomeScreenLayout(photos)
+    val titles = viewModel.titles.collectAsState().value
+    HomeScreenLayout(
+        photos = photos,
+        titles = titles
+    )
 
 }
 
 @Composable
 fun HomeScreenLayout(
-    photos : LazyPagingItems<PhotoUiModel>
+    photos : LazyPagingItems<PhotoUiModel>,
+    titles : List<TopicUiModel>
 ) {
     Column(
         modifier = Modifier
@@ -60,17 +67,10 @@ fun HomeScreenLayout(
                 query = newData
             }
         )
+        Log.d("TopicList", "$titles")
 
-        val listOfTopics = listOf(
-            TopicUi ("ice", true),
-            TopicUi ("twice", false),
-            TopicUi ("photographer", false),
-            TopicUi ("communication", false),
-            TopicUi ("helpful", false),
-        )
+        TopicList(list = titles) {
 
-        TopicList(list = listOfTopics) {
-            
         }
 
         val context = LocalContext.current

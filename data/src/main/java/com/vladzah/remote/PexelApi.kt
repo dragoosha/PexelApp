@@ -27,6 +27,8 @@ interface PexelApi {
 
     @GET("collections/featured")
     suspend fun getFeaturedCollections(
+        @Header("Authorization") apiKey: String = BuildConfig.API_KEY,
+        @Query("per_page") pageSize: Int = 20
     ): QueryCollectionsDto
 
     companion object {

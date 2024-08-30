@@ -2,6 +2,8 @@ package com.vladzah.di
 
 import com.vladzah.usecases.GetPhotosUsecase
 import com.vladzah.usecases.GetPhotosUsecaseImpl
+import com.vladzah.usecases.GetTitleUsecase
+import com.vladzah.usecases.GetTitleUsecaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -13,4 +15,6 @@ abstract class DomainModule {
 
     @Binds
     abstract fun bindGetPhotosUsecase(getPhotosUsecaseImpl: GetPhotosUsecaseImpl): GetPhotosUsecase
+    @Binds
+    abstract fun bindGetTitlesUsecase(getTitleUsecaseImpl: GetTitleUsecaseImpl): GetTitleUsecase
 }
