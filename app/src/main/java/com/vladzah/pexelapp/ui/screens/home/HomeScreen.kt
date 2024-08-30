@@ -27,6 +27,7 @@ import com.vladzah.pexelapp.events.HomeScreenEvents
 import com.vladzah.pexelapp.models.PhotoUiModel
 import com.vladzah.pexelapp.models.TopicUiModel
 import com.vladzah.pexelapp.ui.components.imagesGrid.ImagesGrid
+import com.vladzah.pexelapp.ui.components.progressionBar.ProgressBar
 import com.vladzah.pexelapp.ui.components.search.SearchBarComponent
 import com.vladzah.pexelapp.ui.components.topics.TopicList
 import com.vladzah.pexelapp.ui.theme.PexelAppTheme
@@ -71,12 +72,15 @@ fun HomeScreenLayout(
                 viewModel.onEvent(HomeScreenEvents.onNewQuery(query))
             }
         )
-        Log.d("TopicList", "$titles")
 
         TopicList(list = titles) {topic ->
             query = topic.label
             viewModel.onEvent(HomeScreenEvents.onNewQuery(query))
         }
+
+        ProgressBar(
+            isLoading = photos.loadState.refresh is LoadState.Loading
+        )
 
         ImagesGrid(
             photosList = photos,

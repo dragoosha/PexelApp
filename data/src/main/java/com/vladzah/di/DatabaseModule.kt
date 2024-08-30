@@ -51,6 +51,7 @@ class DatabaseModule {
     ): OkHttpClient =
         OkHttpClient.Builder()
             .addInterceptor(headerInterceptor)
+            .addInterceptor(retryInterceptor)
             .build()
 
     @Provides
