@@ -1,7 +1,10 @@
 package com.vladzah.pexelapp.ui.components.search
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -23,6 +26,8 @@ import com.vladzah.pexelapp.ui.theme.PexelAppTheme
 import com.vladzah.pexelapp.utils.Icons.SearchIcon
 
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.clip
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -34,7 +39,10 @@ fun SearchBarComponent(
 
     SearchBar(
         modifier = Modifier
-            .padding(horizontal = 24.dp, vertical = 12.dp),
+            .fillMaxWidth()
+            .fillMaxHeight(0.07f)
+            .padding(horizontal = 24.dp, vertical = 12.dp)
+            .clip(RoundedCornerShape(100.dp)),
         query = query,
         onQueryChange = onQueryChange,
         onSearch = { isActiveSearch = false },
