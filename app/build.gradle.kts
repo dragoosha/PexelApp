@@ -3,7 +3,6 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
-
 }
 
 android {
@@ -56,7 +55,7 @@ android {
 dependencies {
     implementation(project(":domain"))
     implementation(project(":data"))
-
+    
     //Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
 

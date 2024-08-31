@@ -20,8 +20,8 @@ fun BottomNavigationBar(
     navController: NavController
 ){
     val items = listOf(
-        NavigationItem.Home,
-        NavigationItem.Bookmark
+        NavigationItem.WithIcons.Home,
+        NavigationItem.WithIcons.Bookmark
     )
 
     BottomNavigation(
