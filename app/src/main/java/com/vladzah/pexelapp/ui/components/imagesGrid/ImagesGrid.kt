@@ -41,7 +41,8 @@ import com.vladzah.pexelapp.utils.Icons
 fun ImagesGrid(
     photosList: LazyPagingItems<PhotoUiModel>,
     onExploreClick: () -> Unit,
-    onRetryClick: () -> Unit
+    onRetryClick: () -> Unit,
+    onPhotoClick: (PhotoUiModel) -> Unit
 ) {
     Box(modifier = Modifier) {
         LazyVerticalStaggeredGrid(
@@ -51,7 +52,9 @@ fun ImagesGrid(
         ) {
             items(photosList.itemCount) {index ->
                 photosList[index]?.let { photo ->
-                    PhotoCard(photo = photo) {}
+                    PhotoCard(photo = photo) {uiModel ->
+                        onPhotoClick(uiModel)
+                    }
                 }
             }
         }
@@ -134,7 +137,7 @@ fun NoDataStub(
 @Composable
 fun PhotoCard(
     photo: PhotoUiModel,
-    onclick: () -> Unit
+    onclick: (PhotoUiModel) -> Unit
 ) {
     val ratio = countSize(photo.width, photo.height)
 
@@ -142,7 +145,7 @@ fun PhotoCard(
         modifier = Modifier
             .aspectRatio(ratio)
             .fillMaxWidth()
-            .clickable { onclick() }
+            .clickable { onclick(photo) }
             .padding(12.dp)
             .background(
                 color = MaterialTheme.colorScheme.secondaryContainer,

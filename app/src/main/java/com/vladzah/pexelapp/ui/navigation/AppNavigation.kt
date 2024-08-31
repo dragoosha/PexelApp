@@ -4,10 +4,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.vladzah.pexelapp.models.PhotoUiModel
 import com.vladzah.pexelapp.ui.screens.bookmarks.BookmarksScreen
+import com.vladzah.pexelapp.ui.screens.details.DetailsScreen
 import com.vladzah.pexelapp.ui.screens.home.HomeScreen
 
 @Composable
@@ -19,11 +23,20 @@ fun AppNavigation() {
     ) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = NavigationItem.Home.route,
+            startDestination = NavigationItem.WithIcons.Home.route,
             modifier = Modifier.padding(innerPadding)
         ) {
-            composable(NavigationItem.Home.route) { HomeScreen(navController) }
-            composable(NavigationItem.Bookmark.route) { BookmarksScreen(navController) }
+            composable(NavigationItem.WithIcons.Home.route) { HomeScreen(navController) }
+            composable(NavigationItem.WithIcons.Bookmark.route) { BookmarksScreen(navController) }
+            composable(
+                route = "details/{id}",
+                arguments = listOf(
+                    navArgument("id") {type = NavType.IntType}
+                )
+            ) { backStackEntry ->
+                val id = backStackEntry.arguments?.getInt("id")
+                DetailsScreen(navController, id)
+            }
         }
     }
 }

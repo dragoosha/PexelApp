@@ -17,6 +17,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.os.bundleOf
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -30,6 +31,7 @@ import com.vladzah.pexelapp.ui.components.imagesGrid.ImagesGrid
 import com.vladzah.pexelapp.ui.components.progressionBar.ProgressBar
 import com.vladzah.pexelapp.ui.components.search.SearchBarComponent
 import com.vladzah.pexelapp.ui.components.topics.TopicList
+import com.vladzah.pexelapp.ui.navigation.NavigationItem
 import com.vladzah.pexelapp.ui.theme.PexelAppTheme
 import com.vladzah.pexelapp.viewmodels.HomeScreenViewModel
 
@@ -43,7 +45,10 @@ fun HomeScreen(
     HomeScreenLayout(
         photos = photos,
         titles = titles,
-        viewModel = viewModel
+        viewModel = viewModel,
+        onNavigateClick = {photoUiModel ->
+            navController.navigate("details/${photoUiModel.id}")
+        }
     )
 
 }
@@ -52,7 +57,8 @@ fun HomeScreen(
 fun HomeScreenLayout(
     photos : LazyPagingItems<PhotoUiModel>,
     titles : List<TopicUiModel>,
-    viewModel: HomeScreenViewModel
+    viewModel: HomeScreenViewModel,
+    onNavigateClick: (PhotoUiModel) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -93,6 +99,9 @@ fun HomeScreenLayout(
             },
             onRetryClick = {
                 viewModel.onEvent(HomeScreenEvents.onRetryClicked)
+            },
+            onPhotoClick = {photoUiModel ->
+                onNavigateClick(photoUiModel)
             }
         )
 
