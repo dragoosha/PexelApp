@@ -17,4 +17,7 @@ object Icons {
 
     val SearchIcon: Painter
         @Composable get() = painterResource(id = R.drawable.icon_search)
+
+    val NoInternet: Painter
+        @Composable get() = painterResource(id = R.drawable.ic_no_network)
 }

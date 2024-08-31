@@ -86,6 +86,9 @@ fun HomeScreenLayout(
             photosList = photos,
             onExploreClick = {
                 viewModel.onEvent(HomeScreenEvents.onExploreClicked)
+            },
+            onRetryClick = {
+                viewModel.onEvent(HomeScreenEvents.onRetryClicked)
             }
         )
 

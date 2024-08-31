@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,11 +34,13 @@ import com.vladzah.pexelapp.R
 import com.vladzah.pexelapp.models.PhotoUiModel
 import com.vladzah.pexelapp.ui.components.buttons.ExploreButton
 import com.vladzah.pexelapp.utils.Strings
+import com.vladzah.pexelapp.utils.Icons
 
 @Composable
 fun ImagesGrid(
     photosList: LazyPagingItems<PhotoUiModel>,
-    onExploreClick: () -> Unit
+    onExploreClick: () -> Unit,
+    onRetryClick: () -> Unit
 ) {
     Box(modifier = Modifier) {
         LazyVerticalStaggeredGrid(
@@ -53,20 +54,18 @@ fun ImagesGrid(
                 }
             }
         }
-
         NoDataStub(
             photosList = photosList,
-            onExploreClick = onExploreClick
+            onExploreClick = onExploreClick,
+            onRetryClick = onRetryClick
         )
-
-
     }
 }
-
 @Composable
 fun NoDataStub(
     photosList: LazyPagingItems<PhotoUiModel>,
     onExploreClick: () -> Unit,
+    onRetryClick: () -> Unit
 ) {
     when {
         photosList.loadState.refresh is LoadState.NotLoading && photosList.itemCount == 0 -> {
@@ -96,13 +95,36 @@ fun NoDataStub(
 
             Column(
                 modifier = Modifier
+                    .fillMaxSize()
                     .background(MaterialTheme.colorScheme.background),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(text = stringResource(R.string.no_data_available))
                 Spacer(Modifier.height(12.dp))
-                ExploreButton(text = stringResource(R.string.explore), onClick = onExploreClick)
+                StubButton(text = stringResource(R.string.explore), onClick = onExploreClick)
+            }
+        }
+
+        photosList.loadState.refresh is LoadState.Error -> {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.background),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Image(
+                    painter = Icons.NoInternet,
+                    contentDescription = null
+                )
+
+                Spacer(Modifier.height(12.dp))
+
+                StubButton(
+                    text = stringResource(R.string.try_again),
+                    onClick = onRetryClick
+                )
             }
         }
     }
