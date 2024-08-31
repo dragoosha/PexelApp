@@ -1,5 +1,6 @@
 package com.vladzah.pexelapp.viewmodels
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -8,19 +9,22 @@ import androidx.lifecycle.viewModelScope
 import com.vladzah.pexelapp.events.DetailedScreenEvents
 import com.vladzah.pexelapp.models.PhotoUiModel
 import com.vladzah.pexelapp.models.toUiModel
+import com.vladzah.usecases.DownloadImageUsecase
 import com.vladzah.usecases.GetPhotoByIdFromApiUsecase
 import com.vladzah.usecases.GetPhotoByIdFromDbUsecase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.io.File
 import java.lang.Thread.State
 import javax.inject.Inject
 
 @HiltViewModel
 class DetailsScreenViewModel @Inject constructor(
     private val getPhotoByIdFromDbUsecase: GetPhotoByIdFromDbUsecase,
-    private val getPhotoByIdFromApiUsecase: GetPhotoByIdFromApiUsecase
+    private val getPhotoByIdFromApiUsecase: GetPhotoByIdFromApiUsecase,
+    private val downloadImageUseCase: DownloadImageUsecase
 ) : ViewModel() {
 
     private val _photoModel = MutableStateFlow<PhotoUiModel?>(null)
@@ -50,8 +54,10 @@ class DetailsScreenViewModel @Inject constructor(
         }
     }
 
-    private fun setId(newId: Int) {
-        _id.value = newId
+    fun downloadPhoto(photo: PhotoUiModel) {
+        viewModelScope.launch {
+            downloadImageUseCase.execute(photo.url, photo.id)
+        }
     }
 
     fun onEvent(event: DetailedScreenEvents){
@@ -61,6 +67,9 @@ class DetailsScreenViewModel @Inject constructor(
             }
             is DetailedScreenEvents.onInitFromBookmarkEvent -> {
                 initDataFromDb(event.id)
+            }
+            is DetailedScreenEvents.onDowloadClickEvent -> {
+                downloadPhoto(event.photoUiModel)
             }
 
         }

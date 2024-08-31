@@ -28,6 +28,9 @@ android {
             )
         }
     }
+    buildFeatures {
+        buildConfig = true
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -37,17 +40,34 @@ android {
     }
 }
 
+androidComponents {
+    val properties = Properties()
+    properties.load(project.rootProject.file("local.properties").inputStream())
+
+    onVariants {
+        it.buildConfigFields.put(
+            "API_KEY", BuildConfigField(
+                "String", "\"${properties.getProperty("API_KEY")}\"" , "apiKey")
+        )
+    }
+}
+
+
 
 dependencies {
 
     //Paging
     implementation("androidx.paging:paging-runtime-ktx:3.3.2")
     implementation("androidx.paging:paging-compose:3.3.2")
+    implementation("androidx.media3:media3-exoplayer:1.4.1")
 
     //Hilt
     kapt("com.google.dagger:hilt-android-compiler:2.48")
     implementation("com.google.dagger:hilt-android:2.48")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+
+    //OkHttp
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
 
 
     implementation("androidx.core:core-ktx:1.13.1")

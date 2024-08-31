@@ -1,5 +1,7 @@
 package com.vladzah.di
 
+import com.vladzah.usecases.DownloadImageUsecase
+import com.vladzah.usecases.DownloadImageUsecaseImpl
 import com.vladzah.usecases.GetPhotoByIdFromApiUsecase
 import com.vladzah.usecases.GetPhotoByIdFromApiUsecaseImpl
 import com.vladzah.usecases.GetPhotoByIdFromDbUsecase
@@ -27,4 +29,7 @@ abstract class DomainModule {
 
     @Binds
     abstract fun bindGetPhotoByIdUsecase(getPhotoByIdFromApiUsecaseImpl: GetPhotoByIdFromApiUsecaseImpl): GetPhotoByIdFromApiUsecase
+
+    @Binds
+    abstract fun bindDownloadImageUsecase(downloadImageUsecaseImpl: DownloadImageUsecaseImpl):DownloadImageUsecase
 }
