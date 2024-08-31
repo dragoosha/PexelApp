@@ -16,6 +16,7 @@ import androidx.navigation.NavController
 import com.vladzah.pexelapp.events.DetailedScreenEvents
 import com.vladzah.pexelapp.models.PhotoUiModel
 import com.vladzah.pexelapp.ui.components.bars.BottomBar
+import com.vladzah.pexelapp.ui.components.bars.ProgressBar
 import com.vladzah.pexelapp.ui.components.bars.TopBar
 import com.vladzah.pexelapp.ui.components.images.PhotoCard
 import com.vladzah.pexelapp.ui.navigation.NavigationItem
@@ -46,9 +47,12 @@ fun DetailsScreen(
     }
 
     val photoModel = viewModel.photoModel.collectAsState().value
+    val isLoadingData = viewModel.isLoading.collectAsState().value
+
 
     if (photoModel != null) {
         DetailsScreenLayout(
+            isLoadingData = isLoadingData,
             photoModel = photoModel,
             onNavigateClick = {
                 navController.popBackStack()
@@ -61,6 +65,7 @@ fun DetailsScreen(
 
 @Composable
 fun DetailsScreenLayout(
+    isLoadingData : Boolean,
     photoModel: PhotoUiModel,
     onNavigateClick: () -> Unit
 ) {
@@ -73,6 +78,10 @@ fun DetailsScreenLayout(
         TopBar(
             photographerName = photoModel.photographer,
             onNavigateClick = onNavigateClick
+        )
+
+        ProgressBar(
+            isLoading = isLoadingData
         )
 
         LazyColumn(
@@ -105,7 +114,8 @@ fun Stub() {
 fun DetailsScreenPreview() {
     PexelAppTheme {
         DetailsScreenLayout(
-            photoModel = PhotoUiModel(id = 2010201, "", 6100, 4067, "Calvin Clein", true)
+            photoModel = PhotoUiModel(id = 2010201, "", 6100, 4067, "Calvin Clein", true),
+            isLoadingData = false
         ) {
 
         }
