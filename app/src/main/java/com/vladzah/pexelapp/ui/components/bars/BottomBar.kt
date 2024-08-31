@@ -25,7 +25,8 @@ import com.vladzah.pexelapp.utils.Icons
 @Composable
 fun BottomBar (
     isBookmarked: Boolean,
-    onDownloadClicked: () -> Unit
+    onDownloadClicked: () -> Unit,
+    onBookmarkClicked: () -> Unit
 ) {
 
     Row(
@@ -46,7 +47,7 @@ fun BottomBar (
 
         BookmarkButton(
             isBookmarked = isBookmarked,
-            onClick = {}
+            onClick = onBookmarkClicked
         )
     }
 }

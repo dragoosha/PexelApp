@@ -1,19 +1,17 @@
 package com.vladzah.pexelapp.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
-import com.vladzah.model.PhotoModel
 import com.vladzah.pexelapp.events.HomeScreenEvents
 import com.vladzah.pexelapp.models.PhotoUiModel
 import com.vladzah.pexelapp.models.TopicUiModel
 import com.vladzah.pexelapp.models.toTopicUiModel
 import com.vladzah.pexelapp.models.toUiModel
-import com.vladzah.usecases.GetPhotosUsecase
-import com.vladzah.usecases.GetTitleUsecase
+import com.vladzah.usecases.getUsecases.GetPhotosUsecase
+import com.vladzah.usecases.getUsecases.GetTitleUsecase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

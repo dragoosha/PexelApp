@@ -1,4 +1,4 @@
-package com.vladzah.usecases
+package com.vladzah.usecases.getUsecases
 
 import com.vladzah.interfaces.PhotoRepository
 import com.vladzah.model.PhotoModel
