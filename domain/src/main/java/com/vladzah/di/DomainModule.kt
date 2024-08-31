@@ -4,6 +4,8 @@ import com.vladzah.usecases.DownloadImageUsecase
 import com.vladzah.usecases.DownloadImageUsecaseImpl
 import com.vladzah.usecases.ToggleBookmarkStatusUseCase
 import com.vladzah.usecases.ToggleBookmarkStatusUseCaseImpl
+import com.vladzah.usecases.getUsecases.GetBookmarksUsecase
+import com.vladzah.usecases.getUsecases.GetBookmarksUsecaseImpl
 import com.vladzah.usecases.getUsecases.GetPhotoByIdFromApiUsecase
 import com.vladzah.usecases.getUsecases.GetPhotoByIdFromApiUsecaseImpl
 import com.vladzah.usecases.getUsecases.GetPhotoByIdFromDbUsecase
@@ -25,6 +27,11 @@ abstract class DomainModule {
     abstract fun bindGetPhotosUsecase(
         getPhotosUsecaseImpl: GetPhotosUsecaseImpl
     ): GetPhotosUsecase
+
+    @Binds
+    abstract fun bindGetBookmarkUsecase(
+        getBookmarksUsecaseImpl: GetBookmarksUsecaseImpl
+    ): GetBookmarksUsecase
     @Binds
     abstract fun bindGetTitlesUsecase(
         getTitleUsecaseImpl: GetTitleUsecaseImpl

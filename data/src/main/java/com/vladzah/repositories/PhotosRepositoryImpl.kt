@@ -1,5 +1,6 @@
 package com.vladzah.repositories
 
+import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -11,10 +12,13 @@ import com.vladzah.local.PexelDatabase
 import com.vladzah.local.PexelEntity
 import com.vladzah.mappers.toEntity
 import com.vladzah.mappers.toModel
+import com.vladzah.remote.Constants.CURATED_NUMBER
 import com.vladzah.remote.PexelApi
 import com.vladzah.remote.PhotosRemoteMediator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
@@ -29,7 +33,7 @@ class PhotosRepositoryImpl @Inject constructor(
     override suspend fun getPhotos(query: String): Flow<PagingData<PhotoModel>> {
         return withContext(Dispatchers.IO) {
             val pager = Pager(
-                config = PagingConfig(pageSize = 20),
+                config = PagingConfig(pageSize = CURATED_NUMBER),
                 remoteMediator = PhotosRemoteMediator(
                     pexelDatabase = pexelDatabase,
                     pexelApi = pexelApi,
@@ -71,8 +75,26 @@ class PhotosRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun toggleBookmarkStatus(id: Int) {
-        pexelDatabase.pexelDao.toggleBookmarkStatus(id)
+    override suspend fun toggleBookmarkStatus(id: Int, isBookmarked: Boolean) {
+        Log.d("toggleBookmarkStatus2", " ${isBookmarked}" )
+        pexelDatabase.pexelDao.toggleBookmarkStatus(id, isBookmarked)
+        pexelDatabase.pexelDao.getFromDbById(id).collect{
+            Log.d("toggleBookmarkStatus3", " ${it.isBookmarked}")
+        }
     }
+
+    override suspend fun getBookmarks(): Flow<PagingData<PhotoModel>> {
+        return withContext(Dispatchers.IO) {
+            val pager = Pager (
+                config = PagingConfig(pageSize = CURATED_NUMBER),
+                pagingSourceFactory = {pexelDatabase.pexelDao.getBookmarked()}
+            )
+
+            pager.flow.map { pagingData ->
+                pagingData.map { it.toModel() }
+            }
+        }
+    }
+
 
 }
