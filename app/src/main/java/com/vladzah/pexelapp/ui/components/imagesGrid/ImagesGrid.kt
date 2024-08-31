@@ -1,6 +1,7 @@
 package com.vladzah.pexelapp.ui.components.imagesGrid
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -19,10 +20,12 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
@@ -31,6 +34,7 @@ import coil.compose.AsyncImage
 import com.vladzah.pexelapp.R
 import com.vladzah.pexelapp.models.PhotoUiModel
 import com.vladzah.pexelapp.ui.components.buttons.ExploreButton
+import com.vladzah.pexelapp.utils.Strings
 
 @Composable
 fun ImagesGrid(
@@ -66,6 +70,30 @@ fun NoDataStub(
 ) {
     when {
         photosList.loadState.refresh is LoadState.NotLoading && photosList.itemCount == 0 -> {
+
+            val context = LocalContext.current
+            LaunchedEffect(key1 = photosList.loadState){
+                if(photosList.loadState.refresh is LoadState.Error) {
+                    val error = (photosList.loadState.refresh as LoadState.Error).error
+                    val errorMessage = when (error) {
+                        is retrofit2.HttpException -> when (error.code()) {
+                            400 -> Strings.Error400
+                            401 -> Strings.Error401
+                            403 -> Strings.Error403
+                            404 -> Strings.Error404
+                            500 -> Strings.Error500
+                            else -> "HTTP Error: ${error.message()}"
+                        }
+                        is java.net.UnknownHostException -> Strings.ErrorUnknownHost
+                        is java.net.SocketTimeoutException -> Strings.ErrorTimeout
+                        else -> "Unexpected Error: ${error.message ?: "Unknown error"}"
+                    }
+
+                    Toast.makeText(context, "Error: $errorMessage", Toast.LENGTH_LONG).show()
+                    Log.e("PhotosLoadError", "Error loading photos: $errorMessage")
+                }
+            }
+
             Column(
                 modifier = Modifier
                     .background(MaterialTheme.colorScheme.background),

@@ -3,5 +3,12 @@
     <string name="home">Home</string>
     <string name="no_data_available">No data available</string>
     <string name="explore">Explore</string>
+    <string name="error_400">Bad Request: The server could not understand the request.</string>
+    <string name="error_401">Unauthorized: Access is denied due to invalid credentials.</string>
+    <string name="error_403">Forbidden: You don`t have permission to access this resource.</string>
+    <string name="error_404">Not Found: The requested resource could not be found.</string>
+    <string name="error_500">Internal Server Error: The server encountered an error.</string>
+    <string name="error_unknown_host">No internet connection. Please check your network.</string>
+    <string name="error_timeout">Request timed out. Please try again later.</string>
     <string name="bookmark">Bookmark</string>
 </resources>
