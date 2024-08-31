@@ -74,6 +74,7 @@ class HomeScreenViewModel @Inject constructor(
         when(event){
             is HomeScreenEvents.onNewQuery -> setQuery(event.query)
             is HomeScreenEvents.onExploreClicked -> observePhotos()
+            is HomeScreenEvents.onRetryClicked -> observePhotos()
         }
     }
 

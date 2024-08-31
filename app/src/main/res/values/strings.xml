@@ -2,6 +2,7 @@
     <string name="app_name">PexelApp</string>
     <string name="home">Home</string>
     <string name="no_data_available">No data available</string>
+    <string name="try_again">Try again</string>
     <string name="explore">Explore</string>
     <string name="bookmark">Bookmark</string>
 </resources>
