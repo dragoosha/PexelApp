@@ -73,10 +73,14 @@ fun HomeScreenLayout(
             }
         )
 
-        TopicList(list = titles) {topic ->
-            query = topic.label
-            viewModel.onEvent(HomeScreenEvents.onNewQuery(query))
-        }
+        TopicList(
+            list = titles,
+            query = query,
+            onClick = { topic ->
+                query = topic.label
+                viewModel.onEvent(HomeScreenEvents.onNewQuery(query))
+            }
+        )
 
         ProgressBar(
             isLoading = photos.loadState.refresh is LoadState.Loading

@@ -27,37 +27,45 @@ import com.vladzah.pexelapp.ui.theme.PexelAppTheme
 @Composable
 fun TopicList(
     list: List<TopicUiModel>,
+    query: String,
     onClick: (TopicUiModel) -> Unit
 ) {
+    val updatedList = list.map { topic ->
+        topic.copy(isSelected = topic.label.equals(query, ignoreCase = true))
+    }
+
     LazyRow(
         modifier = Modifier
             .padding(horizontal = 24.dp, vertical = 12.dp)
     ) {
-        items(list.size) {index ->
+        items(updatedList.size) { index ->
             Topic(
-                topic = list[index],
-                onClick = onClick
+                topic = updatedList[index],
+                onClick = { selectedTopic ->
+                    selectedTopic.isSelected != selectedTopic.isSelected
+                    onClick(selectedTopic)
+                }
             )
 
-            if (index != list.lastIndex) {
+            if (index != updatedList.lastIndex) {
                 Spacer(Modifier.width(12.dp))
             }
         }
     }
 }
+
 @Composable
 fun Topic(
     topic: TopicUiModel,
     onClick: (TopicUiModel) -> Unit
 ) {
-    val boxColor : Color
+    val boxColor: Color
     val textColor: Color
 
-    if(topic.isSelected) {
+    if (topic.isSelected) {
         boxColor = MaterialTheme.colorScheme.primaryContainer
         textColor = MaterialTheme.colorScheme.onPrimaryContainer
-    }
-    else {
+    } else {
         boxColor = MaterialTheme.colorScheme.secondaryContainer
         textColor = MaterialTheme.colorScheme.onSecondaryContainer
     }
@@ -73,10 +81,9 @@ fun Topic(
             .clip(RoundedCornerShape(100))
             .clickable { onClick(topic) }
             .padding(horizontal = 20.dp, vertical = 10.dp)
-
     )
-
 }
+
 
 @Preview(showBackground = true)
 @Composable
