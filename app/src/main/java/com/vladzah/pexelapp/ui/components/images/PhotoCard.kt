@@ -20,17 +20,17 @@ import com.vladzah.pexelapp.models.PhotoUiModel
 
 @Composable
 fun PhotoCard(
+    modifier: Modifier,
     photo: PhotoUiModel,
     onclick: (PhotoUiModel) -> Unit
 ) {
     val ratio = countSize(photo.width, photo.height)
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .aspectRatio(ratio)
             .fillMaxWidth()
             .clickable { onclick(photo) }
-            .padding(12.dp)
             .background(
                 color = MaterialTheme.colorScheme.secondaryContainer,
                 shape = RoundedCornerShape(20.dp)
