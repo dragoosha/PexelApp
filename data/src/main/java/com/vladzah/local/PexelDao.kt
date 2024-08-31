@@ -19,6 +19,9 @@ interface PexelDao {
     @Query("DELETE FROM PexelEntity WHERE isBookmarked = 0")
     suspend fun clearAll()
 
+    @Query("UPDATE PexelEntity SET isBookmarked = NOT isBookmarked WHERE id = :id")
+    suspend fun toggleBookmarkStatus(id: Int)
+
     @Query("SELECT * FROM PexelEntity WHERE id = :id")
     fun getFromDbById(id: Int): Flow<PexelEntity>
 }

@@ -58,6 +58,9 @@ fun DetailsScreen(
             photoModel = photoModel,
             onNavigateClick = {
                 navController.popBackStack()
+            },
+            onDownloadClick = {photoUiModel ->
+                viewModel.onEvent(DetailedScreenEvents.onDowloadClickEvent(photoUiModel))
             }
         )
     } else {
@@ -69,7 +72,8 @@ fun DetailsScreen(
 fun DetailsScreenLayout(
     isLoadingData : Boolean,
     photoModel: PhotoUiModel,
-    onNavigateClick: () -> Unit
+    onNavigateClick: () -> Unit,
+    onDownloadClick: (PhotoUiModel) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -100,7 +104,8 @@ fun DetailsScreenLayout(
 
             item {
                 BottomBar(
-                    isBookmarked = photoModel.isBookmarked
+                    isBookmarked = photoModel.isBookmarked,
+                    onDownloadClicked = { onDownloadClick(photoModel) }
                 )
             }
         }
@@ -117,11 +122,12 @@ fun Stub() {
 @Composable
 fun DetailsScreenPreview() {
     PexelAppTheme {
+        val model = PhotoUiModel(id = 2010201, "", 6100, 4067, "Calvin Clein", true)
         DetailsScreenLayout(
-            photoModel = PhotoUiModel(id = 2010201, "", 6100, 4067, "Calvin Clein", true),
-            isLoadingData = false
-        ) {
-
-        }
+            photoModel = model,
+            isLoadingData = false,
+            onDownloadClick = {},
+            onNavigateClick = {}
+        )
     }
 }

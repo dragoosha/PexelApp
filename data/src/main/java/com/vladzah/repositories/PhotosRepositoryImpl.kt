@@ -71,4 +71,8 @@ class PhotosRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun toggleBookmarkStatus(id: Int) {
+        pexelDatabase.pexelDao.toggleBookmarkStatus(id)
+    }
+
 }
