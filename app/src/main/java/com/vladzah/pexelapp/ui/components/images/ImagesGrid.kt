@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.material3.MaterialTheme
@@ -44,7 +45,11 @@ fun ImagesGrid(
         ) {
             items(photosList.itemCount) {index ->
                 photosList[index]?.let { photo ->
-                    PhotoCard(photo = photo) {uiModel ->
+                    PhotoCard(
+                        modifier = Modifier
+                            .padding(12.dp),
+                        photo = photo
+                    ) {uiModel ->
                         onPhotoClick(uiModel)
                     }
                 }
