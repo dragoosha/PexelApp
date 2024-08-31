@@ -1,6 +1,5 @@
-package com.vladzah.pexelapp.ui.components.progressionBar
+package com.vladzah.pexelapp.ui.components.bars
 
-import android.widget.ProgressBar
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut

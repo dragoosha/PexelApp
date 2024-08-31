@@ -11,5 +11,7 @@
     <string name="error_500">Internal Server Error: The server encountered an error.</string>
     <string name="error_unknown_host">No internet connection. Please check your network.</string>
     <string name="error_timeout">Request timed out. Please try again later.</string>
+    <string name="back_button">Back Button</string>
+    <string name="download">Download</string>
     <string name="bookmark">Bookmark</string>
 </resources>

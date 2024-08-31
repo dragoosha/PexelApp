@@ -1,23 +1,18 @@
 package com.vladzah.pexelapp.ui.screens.home
 
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.core.os.bundleOf
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -27,11 +22,10 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.vladzah.pexelapp.events.HomeScreenEvents
 import com.vladzah.pexelapp.models.PhotoUiModel
 import com.vladzah.pexelapp.models.TopicUiModel
-import com.vladzah.pexelapp.ui.components.imagesGrid.ImagesGrid
-import com.vladzah.pexelapp.ui.components.progressionBar.ProgressBar
+import com.vladzah.pexelapp.ui.components.images.ImagesGrid
+import com.vladzah.pexelapp.ui.components.bars.ProgressBar
 import com.vladzah.pexelapp.ui.components.search.SearchBarComponent
 import com.vladzah.pexelapp.ui.components.topics.TopicList
-import com.vladzah.pexelapp.ui.navigation.NavigationItem
 import com.vladzah.pexelapp.ui.theme.PexelAppTheme
 import com.vladzah.pexelapp.viewmodels.HomeScreenViewModel
 
