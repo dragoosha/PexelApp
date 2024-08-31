@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -20,6 +21,7 @@ import androidx.navigation.NavHostController
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.vladzah.pexelapp.models.PhotoUiModel
+import com.vladzah.pexelapp.ui.components.bars.ProgressBar
 import com.vladzah.pexelapp.ui.components.images.ImagesGrid
 import com.vladzah.pexelapp.ui.navigation.NavigationItem
 import com.vladzah.pexelapp.ui.theme.PexelAppTheme
@@ -32,14 +34,19 @@ fun BookmarksScreen(
 ) {
 
     val bookmarks = viewModel.bookmars.collectAsLazyPagingItems()
+    val isLoading = viewModel.isLoading.collectAsState().value
 
     BookmarksScreenLayout(
         photos = bookmarks,
+        isLoading = isLoading,
         onNavigateClick = {photoUiModel ->
             navController
                 .navigate(
                 "details/${photoUiModel.id}/?source=${NavigationItem.WithIcons.Bookmark.route}"
             )
+        },
+        onExploreClick = {
+            navController.navigate(NavigationItem.WithIcons.Home.route)
         }
     )
 
@@ -48,6 +55,8 @@ fun BookmarksScreen(
 @Composable
 fun BookmarksScreenLayout(
     photos: LazyPagingItems<PhotoUiModel>,
+    isLoading: Boolean,
+    onExploreClick: () -> Unit,
     onNavigateClick: (PhotoUiModel) -> Unit
 ) {
     Column(
@@ -65,10 +74,12 @@ fun BookmarksScreenLayout(
                 .padding(vertical = 25.dp)
         )
 
+        ProgressBar(isLoading = isLoading)
+
         ImagesGrid(
             photosList = photos,
-            onExploreClick = { /*TODO*/ },
-            onRetryClick = { /*TODO*/ },
+            onExploreClick = onExploreClick,
+            onRetryClick = {},
             onPhotoClick = {photoUiModel -> onNavigateClick(photoUiModel) },
             isBookmarkScreen = true
         )
