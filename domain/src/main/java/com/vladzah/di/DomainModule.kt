@@ -1,5 +1,7 @@
 package com.vladzah.di
 
+import com.vladzah.usecases.GetPhotoByIdUsecase
+import com.vladzah.usecases.GetPhotoByIdUsecaseImpl
 import com.vladzah.usecases.GetPhotosUsecase
 import com.vladzah.usecases.GetPhotosUsecaseImpl
 import com.vladzah.usecases.GetTitleUsecase
@@ -17,4 +19,7 @@ abstract class DomainModule {
     abstract fun bindGetPhotosUsecase(getPhotosUsecaseImpl: GetPhotosUsecaseImpl): GetPhotosUsecase
     @Binds
     abstract fun bindGetTitlesUsecase(getTitleUsecaseImpl: GetTitleUsecaseImpl): GetTitleUsecase
+
+    @Binds
+    abstract fun bindGetPhotoByIdUsecase(getPhotoByIdUsecaseImpl: GetPhotoByIdUsecaseImpl): GetPhotoByIdUsecase
 }

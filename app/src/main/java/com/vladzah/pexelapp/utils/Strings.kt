@@ -22,4 +22,7 @@ object Strings {
         get() = R.string.error_unknown_host
     val ErrorTimeout
         get() = R.string.error_timeout
+
+    val BackButton
+        get() = R.string.back_button
 }

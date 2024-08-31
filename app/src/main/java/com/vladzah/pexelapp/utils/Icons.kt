@@ -20,4 +20,10 @@ object Icons {
 
     val NoInternet: Painter
         @Composable get() = painterResource(id = R.drawable.ic_no_network)
+
+    val BackArrow: Painter
+        @Composable get() = painterResource(id = R.drawable.ic_back)
+
+    val DownloadIcon: Painter
+        @Composable get() = painterResource(id = R.drawable.ic_download)
 }
