@@ -33,6 +33,7 @@ import com.vladzah.pexelapp.utils.Icons
 @Composable
 fun ImagesGrid(
     photosList: LazyPagingItems<PhotoUiModel>,
+    errorMessage: String,
     onExploreClick: () -> Unit,
     onRetryClick: () -> Unit,
     onPhotoClick: (PhotoUiModel) -> Unit,
@@ -58,6 +59,7 @@ fun ImagesGrid(
             }
         }
         NoDataStub(
+            errorMessage = errorMessage,
             photosList = photosList,
             onExploreClick = onExploreClick,
             onRetryClick = onRetryClick
@@ -66,6 +68,7 @@ fun ImagesGrid(
 }
 @Composable
 fun NoDataStub(
+    errorMessage: String,
     photosList: LazyPagingItems<PhotoUiModel>,
     onExploreClick: () -> Unit,
     onRetryClick: () -> Unit
@@ -103,7 +106,7 @@ fun NoDataStub(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                Text(text = stringResource(R.string.no_data_available))
+                Text(text = errorMessage)
                 Spacer(Modifier.height(12.dp))
                 StubButton(text = stringResource(R.string.explore), onClick = onExploreClick)
             }

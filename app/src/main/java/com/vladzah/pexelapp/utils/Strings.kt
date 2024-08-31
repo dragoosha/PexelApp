@@ -1,5 +1,7 @@
 package com.vladzah.pexelapp.utils
 
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import com.vladzah.pexelapp.R
 
 object Strings {
@@ -25,4 +27,9 @@ object Strings {
 
     val BackButton
         get() = R.string.back_button
+
+    val NoBookmark
+        get() = R.string.no_bookmark
+    val NoData
+        get() = R.string.no_data_available
 }

@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -25,6 +26,7 @@ import com.vladzah.pexelapp.ui.components.bars.ProgressBar
 import com.vladzah.pexelapp.ui.components.images.ImagesGrid
 import com.vladzah.pexelapp.ui.navigation.NavigationItem
 import com.vladzah.pexelapp.ui.theme.PexelAppTheme
+import com.vladzah.pexelapp.utils.Strings
 import com.vladzah.pexelapp.viewmodels.BookmarksScreenViewModel
 
 @Composable
@@ -79,6 +81,7 @@ fun BookmarksScreenLayout(
         ImagesGrid(
             photosList = photos,
             onExploreClick = onExploreClick,
+            errorMessage = stringResource(Strings.NoBookmark),
             onRetryClick = {},
             onPhotoClick = {photoUiModel -> onNavigateClick(photoUiModel) },
             isBookmarkScreen = true
