@@ -16,7 +16,7 @@ interface PexelDao {
     @Query("SELECT * FROM PexelEntity")
     fun pagingSource(): PagingSource<Int, PexelEntity>
 
-    @Query("DELETE FROM PexelEntity")
+    @Query("DELETE FROM PexelEntity WHERE isBookmarked = 0")
     suspend fun clearAll()
 
     @Query("SELECT * FROM PexelEntity WHERE id = :id")

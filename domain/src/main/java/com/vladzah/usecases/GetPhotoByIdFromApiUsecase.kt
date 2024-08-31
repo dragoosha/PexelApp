@@ -5,15 +5,15 @@ import com.vladzah.model.PhotoModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-interface GetPhotoByIdUsecase {
-    suspend fun execute(id: Int) : Flow<PhotoModel>
+interface GetPhotoByIdFromApiUsecase {
+    suspend fun execute(id: Int): Flow<PhotoModel>
 }
 
-class GetPhotoByIdUsecaseImpl @Inject constructor(
+class GetPhotoByIdFromApiUsecaseImpl @Inject constructor(
     private val photoRepository: PhotoRepository
-): GetPhotoByIdUsecase {
+): GetPhotoByIdFromApiUsecase {
     override suspend fun execute(id: Int): Flow<PhotoModel> {
-        return photoRepository.getPhotoById(id)
+        return photoRepository.getPhotoByIdFromApi(id)
     }
 
 }

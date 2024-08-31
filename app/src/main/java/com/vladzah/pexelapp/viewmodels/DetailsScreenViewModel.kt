@@ -5,7 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.vladzah.pexelapp.events.DetailedScreenEvents
 import com.vladzah.pexelapp.models.PhotoUiModel
 import com.vladzah.pexelapp.models.toUiModel
-import com.vladzah.usecases.GetPhotoByIdUsecase
+import com.vladzah.usecases.GetPhotoByIdFromApiUsecase
+import com.vladzah.usecases.GetPhotoByIdFromDbUsecase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,7 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailsScreenViewModel @Inject constructor(
-    private val getPhotoByIdUsecase: GetPhotoByIdUsecase
+    private val getPhotoByIdFromDbUsecase: GetPhotoByIdFromDbUsecase,
+    private val getPhotoByIdFromApiUsecase: GetPhotoByIdFromApiUsecase
 ) : ViewModel() {
 
     private val _photoModel = MutableStateFlow<PhotoUiModel?>(null)
@@ -25,9 +27,17 @@ class DetailsScreenViewModel @Inject constructor(
     val id: StateFlow<Int> = _id
 
 
-    fun initData(id: Int) {
+    fun initDataFromDb(id: Int) {
         viewModelScope.launch {
-            getPhotoByIdUsecase.execute(id).collect { data ->
+            getPhotoByIdFromDbUsecase.execute(id).collect { data ->
+                _photoModel.value = data.toUiModel()
+            }
+        }
+    }
+
+    fun initDataFromApi(id: Int) {
+        viewModelScope.launch {
+            getPhotoByIdFromApiUsecase.execute(id).collect { data ->
                 _photoModel.value = data.toUiModel()
             }
         }
@@ -39,9 +49,13 @@ class DetailsScreenViewModel @Inject constructor(
 
     fun onEvent(event: DetailedScreenEvents){
         when(event) {
-            is DetailedScreenEvents.onInitEvent -> {
-                initData(event.id)
+            is DetailedScreenEvents.onInitFromHomeEvent -> {
+                initDataFromApi(event.id)
             }
+            is DetailedScreenEvents.onInitFromBookmarkEvent -> {
+                initDataFromDb(event.id)
+            }
+
         }
     }
 }

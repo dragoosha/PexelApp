@@ -29,13 +29,15 @@ fun AppNavigation() {
             composable(NavigationItem.WithIcons.Home.route) { HomeScreen(navController) }
             composable(NavigationItem.WithIcons.Bookmark.route) { BookmarksScreen(navController) }
             composable(
-                route = "details/{id}",
+                route = "details/{id}/?source={source}",
                 arguments = listOf(
-                    navArgument("id") {type = NavType.IntType}
+                    navArgument("id") {type = NavType.IntType},
+                    navArgument("source") { type = NavType.StringType }
                 )
             ) { backStackEntry ->
                 val id = backStackEntry.arguments?.getInt("id")
-                DetailsScreen(navController, id)
+                val source = backStackEntry.arguments?.getString("source")
+                DetailsScreen(navController, id, source)
             }
         }
     }
