@@ -1,5 +1,8 @@
 package com.vladzah.pexelapp.viewmodels
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vladzah.pexelapp.events.DetailedScreenEvents
@@ -26,11 +29,14 @@ class DetailsScreenViewModel @Inject constructor(
     private val _id = MutableStateFlow(0)
     val id: StateFlow<Int> = _id
 
+    private val _isLoading = MutableStateFlow(true)
+    val isLoading: StateFlow<Boolean> = _isLoading
 
     fun initDataFromDb(id: Int) {
         viewModelScope.launch {
             getPhotoByIdFromDbUsecase.execute(id).collect { data ->
                 _photoModel.value = data.toUiModel()
+                _isLoading.value = false
             }
         }
     }
@@ -39,6 +45,7 @@ class DetailsScreenViewModel @Inject constructor(
         viewModelScope.launch {
             getPhotoByIdFromApiUsecase.execute(id).collect { data ->
                 _photoModel.value = data.toUiModel()
+                _isLoading.value = false
             }
         }
     }

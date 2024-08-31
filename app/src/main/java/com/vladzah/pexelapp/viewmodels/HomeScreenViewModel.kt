@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import androidx.paging.map
 import com.vladzah.model.PhotoModel
 import com.vladzah.pexelapp.events.HomeScreenEvents
@@ -17,6 +18,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -56,17 +58,19 @@ class HomeScreenViewModel @Inject constructor(
 
     private fun observePhotos() {
         viewModelScope.launch {
-            query.collectLatest { queryValue ->
-                getPhotosUsecase.execute(queryValue)
-                    .map { pagingData ->
-                        pagingData.map { photoModel ->
-                            photoModel.toUiModel()
+            query
+                .flatMapLatest { queryValue ->
+                    getPhotosUsecase.execute(queryValue)
+                        .map { pagingData ->
+                            pagingData.map { photoModel ->
+                                photoModel.toUiModel()
+                            }
                         }
-                    }
-                    .collectLatest { transformedPagingData ->
-                        _photos.value = transformedPagingData
-                    }
-            }
+                        .cachedIn(viewModelScope)
+                }
+                .collectLatest { transformedPagingData ->
+                    _photos.value = transformedPagingData
+                }
         }
     }
 
@@ -75,6 +79,7 @@ class HomeScreenViewModel @Inject constructor(
             is HomeScreenEvents.onNewQuery -> setQuery(event.query)
             is HomeScreenEvents.onExploreClicked -> observePhotos()
             is HomeScreenEvents.onRetryClicked -> observePhotos()
+            else -> {}
         }
     }
 
