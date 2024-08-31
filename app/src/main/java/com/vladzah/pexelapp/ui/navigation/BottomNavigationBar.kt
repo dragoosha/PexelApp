@@ -1,5 +1,6 @@
 package com.vladzah.pexelapp.ui.navigation
 
+import android.util.Log
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -10,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.vladzah.pexelapp.ui.theme.Black
 import com.vladzah.pexelapp.ui.theme.Red
@@ -29,12 +31,13 @@ fun BottomNavigationBar(
             .fillMaxWidth(),
         backgroundColor = MaterialTheme.colors.background
     ) {
-        val currentRoute = navController.currentBackStackEntry?.destination?.route
+        val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
+
         items.forEach { item ->
             BottomNavigationItem(
                 icon = {
                     Icon(
-                        painter = item.iconInactive(),
+                        painter = if (currentRoute == item.route) item.iconActive() else item.iconInactive(),
                         contentDescription = stringResource(id = item.title)
                     )
                 },

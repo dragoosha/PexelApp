@@ -35,7 +35,8 @@ fun ImagesGrid(
     photosList: LazyPagingItems<PhotoUiModel>,
     onExploreClick: () -> Unit,
     onRetryClick: () -> Unit,
-    onPhotoClick: (PhotoUiModel) -> Unit
+    onPhotoClick: (PhotoUiModel) -> Unit,
+    isBookmarkScreen: Boolean = false
 ) {
     Box(modifier = Modifier) {
         LazyVerticalStaggeredGrid(
@@ -48,7 +49,8 @@ fun ImagesGrid(
                     PhotoCard(
                         modifier = Modifier
                             .padding(12.dp),
-                        photo = photo
+                        photo = photo,
+                        isBookmarkScreen = isBookmarkScreen
                     ) {uiModel ->
                         onPhotoClick(uiModel)
                     }

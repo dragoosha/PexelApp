@@ -31,7 +31,6 @@ fun BookmarkButton(
     }
 
     val icon = if (isBooked) Icons.BookMarkActive else Icons.BookMarkInactive
-    Log.d("IsBookMarked", "$isBooked")
 
     Box(
         modifier = Modifier
@@ -42,6 +41,7 @@ fun BookmarkButton(
             )
             .clip(CircleShape)
             .clickable {
+                onClick()
                 isBooked = !isBooked
             }
             .padding(14.dp),
