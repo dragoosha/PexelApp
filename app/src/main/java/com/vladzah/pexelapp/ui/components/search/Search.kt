@@ -26,16 +26,31 @@ import com.vladzah.pexelapp.ui.theme.PexelAppTheme
 import com.vladzah.pexelapp.utils.Icons.SearchIcon
 
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchBarComponent(
     query: String,
-    onQueryChange: (String) -> Unit
+    onQueryChange: (String) -> Unit,
 ) {
     var isActiveSearch by remember { mutableStateOf(false) }
+    val debouncePeriod = 500L
+    val coroutineScope = rememberCoroutineScope()
+
+    LaunchedEffect(query) {
+        if (isActiveSearch && query.isNotEmpty()) {
+            coroutineScope.launch {
+                delay(debouncePeriod)
+                onQueryChange(query)
+            }
+        }
+    }
 
     SearchBar(
         modifier = Modifier
@@ -45,7 +60,10 @@ fun SearchBarComponent(
             .clip(RoundedCornerShape(100.dp)),
         query = query,
         onQueryChange = onQueryChange,
-        onSearch = { isActiveSearch = false },
+        onSearch = {
+            isActiveSearch = false
+            onQueryChange(query)
+        },
         active = isActiveSearch,
         onActiveChange = { isActiveSearch = true },
         placeholder = { Text(text = "Search") },
