@@ -2,6 +2,7 @@ package com.vladzah.pexelapp.ui.components.imagesGrid
 
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -32,7 +33,7 @@ import androidx.paging.compose.LazyPagingItems
 import coil.compose.AsyncImage
 import com.vladzah.pexelapp.R
 import com.vladzah.pexelapp.models.PhotoUiModel
-import com.vladzah.pexelapp.ui.components.buttons.ExploreButton
+import com.vladzah.pexelapp.ui.components.buttons.StubButton
 import com.vladzah.pexelapp.utils.Strings
 import com.vladzah.pexelapp.utils.Icons
 
