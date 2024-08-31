@@ -1,9 +1,6 @@
-package com.vladzah.usecases
+package com.vladzah.usecases.getUsecases
 
-import androidx.paging.PagingData
 import com.vladzah.interfaces.PhotoRepository
-import com.vladzah.model.PhotoModel
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 interface GetTitleUsecase {

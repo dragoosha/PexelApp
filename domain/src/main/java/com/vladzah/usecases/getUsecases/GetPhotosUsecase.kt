@@ -1,6 +1,5 @@
-package com.vladzah.usecases
+package com.vladzah.usecases.getUsecases
 
-import androidx.paging.Pager
 import androidx.paging.PagingData
 import com.vladzah.interfaces.PhotoRepository
 import com.vladzah.model.PhotoModel

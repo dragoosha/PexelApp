@@ -61,6 +61,9 @@ fun DetailsScreen(
             },
             onDownloadClick = {photoUiModel ->
                 viewModel.onEvent(DetailedScreenEvents.onDowloadClickEvent(photoUiModel))
+            },
+            onBookmarkClick = {photoUiModel ->
+                viewModel.onEvent(DetailedScreenEvents.onBookmarkClickEvent(photoUiModel))
             }
         )
     } else {
@@ -73,7 +76,8 @@ fun DetailsScreenLayout(
     isLoadingData : Boolean,
     photoModel: PhotoUiModel,
     onNavigateClick: () -> Unit,
-    onDownloadClick: (PhotoUiModel) -> Unit
+    onDownloadClick: (PhotoUiModel) -> Unit,
+    onBookmarkClick: (PhotoUiModel) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -105,7 +109,8 @@ fun DetailsScreenLayout(
             item {
                 BottomBar(
                     isBookmarked = photoModel.isBookmarked,
-                    onDownloadClicked = { onDownloadClick(photoModel) }
+                    onDownloadClicked = { onDownloadClick(photoModel) },
+                    onBookmarkClicked = { onBookmarkClick(photoModel) }
                 )
             }
         }
@@ -127,7 +132,8 @@ fun DetailsScreenPreview() {
             photoModel = model,
             isLoadingData = false,
             onDownloadClick = {},
-            onNavigateClick = {}
+            onNavigateClick = {},
+            onBookmarkClick = {}
         )
     }
 }
