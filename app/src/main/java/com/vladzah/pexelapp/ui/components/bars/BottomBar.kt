@@ -17,12 +17,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.vladzah.pexelapp.R
+import com.vladzah.pexelapp.models.PhotoUiModel
 import com.vladzah.pexelapp.ui.components.buttons.BookmarkButton
 import com.vladzah.pexelapp.ui.components.buttons.DownloadButton
 import com.vladzah.pexelapp.utils.Icons
 
 @Composable
-fun BottomBar () {
+fun BottomBar (
+    isBookmarked: Boolean
+) {
 
     Row(
         modifier = Modifier
@@ -41,6 +44,7 @@ fun BottomBar () {
 
 
         BookmarkButton(
+            isBookmarked = isBookmarked,
             onClick = {}
         )
     }

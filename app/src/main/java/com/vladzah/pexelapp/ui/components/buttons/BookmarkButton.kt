@@ -17,21 +17,21 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.vladzah.pexelapp.ui.theme.PexelAppTheme
 import com.vladzah.pexelapp.utils.Icons
 @Composable
 fun BookmarkButton(
+    isBookmarked: Boolean,
     onClick: () -> Unit
 ) {
-    var isBookmarked by remember {
-        mutableStateOf(false)
+    var isBooked by remember {
+        mutableStateOf(isBookmarked)
     }
 
-    val icon = if (isBookmarked) Icons.BookMarkActive else Icons.BookMarkInactive
-    Log.d("IsBookMarked", "$isBookmarked")
+    val icon = if (isBooked) Icons.BookMarkActive else Icons.BookMarkInactive
+    Log.d("IsBookMarked", "$isBooked")
 
     Box(
         modifier = Modifier
@@ -42,7 +42,7 @@ fun BookmarkButton(
             )
             .clip(CircleShape)
             .clickable {
-                isBookmarked = !isBookmarked
+                isBooked = !isBooked
             }
             .padding(14.dp),
         contentAlignment = Alignment.Center
@@ -58,7 +58,7 @@ fun BookmarkButton(
 @Composable
 fun BookmarkPreview() {
     PexelAppTheme {
-        BookmarkButton() {
+        BookmarkButton(true) {
 
         }
     }
@@ -68,7 +68,7 @@ fun BookmarkPreview() {
 @Composable
 fun BookmarkPreviewNight() {
     PexelAppTheme(darkTheme = true){
-        BookmarkButton() {
+        BookmarkButton(false) {
 
         }
     }

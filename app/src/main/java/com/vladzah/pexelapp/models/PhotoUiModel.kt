@@ -7,7 +7,8 @@ data class PhotoUiModel(
     val url: String,
     val width: Int,
     val height: Int,
-    val photographer: String
+    val photographer: String,
+    val isBookmarked: Boolean
 )
 internal fun PhotoModel.toUiModel(): PhotoUiModel {
     return PhotoUiModel(
@@ -15,6 +16,7 @@ internal fun PhotoModel.toUiModel(): PhotoUiModel {
         url = urlOrig,
         width = width,
         height = height,
-        photographer = photographer
+        photographer = photographer,
+        isBookmarked = isBookmarked
     )
 }

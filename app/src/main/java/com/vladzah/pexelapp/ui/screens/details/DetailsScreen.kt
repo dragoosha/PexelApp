@@ -1,31 +1,24 @@
 package com.vladzah.pexelapp.ui.screens.details
 
-import androidx.compose.foundation.Image
+import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import coil.compose.rememberImagePainter
 import com.vladzah.pexelapp.events.DetailedScreenEvents
 import com.vladzah.pexelapp.models.PhotoUiModel
 import com.vladzah.pexelapp.ui.components.bars.BottomBar
 import com.vladzah.pexelapp.ui.components.bars.TopBar
 import com.vladzah.pexelapp.ui.components.images.PhotoCard
+import com.vladzah.pexelapp.ui.navigation.NavigationItem
 import com.vladzah.pexelapp.ui.theme.PexelAppTheme
 import com.vladzah.pexelapp.viewmodels.DetailsScreenViewModel
 
@@ -33,22 +26,37 @@ import com.vladzah.pexelapp.viewmodels.DetailsScreenViewModel
 fun DetailsScreen(
     navController: NavController,
     photoId: Int?,
+    source: String?,
     viewModel: DetailsScreenViewModel = hiltViewModel(),
 ) {
 
-    photoId?.let {
-        DetailedScreenEvents.onInitEvent(it)
-    }?.let {
-        viewModel.onEvent(it)
-    } ?: Stub()
+    photoId?.let {id ->
+        when (source){
+            NavigationItem.WithIcons.Home.route -> {
+                Log.d("Unique", "$id")
+                viewModel.onEvent(DetailedScreenEvents.onInitFromHomeEvent(id))
+            }
+
+            NavigationItem.WithIcons.Bookmark.route -> {
+                viewModel.onEvent(DetailedScreenEvents.onInitFromBookmarkEvent(id))
+            }
+            else -> {}
+        }
+
+    }
 
     val photoModel = viewModel.photoModel.collectAsState().value
-    photoModel?.let{
-            DetailsScreenLayout(
-                photoModel = photoModel,
-                onNavigateClick = {}
-            )
-        }
+
+    if (photoModel != null) {
+        DetailsScreenLayout(
+            photoModel = photoModel,
+            onNavigateClick = {
+                navController.popBackStack()
+            }
+        )
+    } else {
+        Stub()
+    }
 }
 
 @Composable
@@ -62,7 +70,6 @@ fun DetailsScreenLayout(
             .systemBarsPadding()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        // TopBar remains fixed at the top
         TopBar(
             photographerName = photoModel.photographer,
             onNavigateClick = onNavigateClick
@@ -80,6 +87,7 @@ fun DetailsScreenLayout(
 
             item {
                 BottomBar(
+                    isBookmarked = photoModel.isBookmarked
                 )
             }
         }
@@ -97,7 +105,7 @@ fun Stub() {
 fun DetailsScreenPreview() {
     PexelAppTheme {
         DetailsScreenLayout(
-            photoModel = PhotoUiModel(id = 2010201, "", 6100, 4067, "Calvin Clein")
+            photoModel = PhotoUiModel(id = 2010201, "", 6100, 4067, "Calvin Clein", true)
         ) {
 
         }

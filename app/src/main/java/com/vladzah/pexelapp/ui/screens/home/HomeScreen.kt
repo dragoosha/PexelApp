@@ -26,6 +26,7 @@ import com.vladzah.pexelapp.ui.components.images.ImagesGrid
 import com.vladzah.pexelapp.ui.components.bars.ProgressBar
 import com.vladzah.pexelapp.ui.components.search.SearchBarComponent
 import com.vladzah.pexelapp.ui.components.topics.TopicList
+import com.vladzah.pexelapp.ui.navigation.NavigationItem
 import com.vladzah.pexelapp.ui.theme.PexelAppTheme
 import com.vladzah.pexelapp.viewmodels.HomeScreenViewModel
 
@@ -41,7 +42,7 @@ fun HomeScreen(
         titles = titles,
         viewModel = viewModel,
         onNavigateClick = {photoUiModel ->
-            navController.navigate("details/${photoUiModel.id}")
+            navController.navigate("details/${photoUiModel.id}/?source=${NavigationItem.WithIcons.Home.route}")
         }
     )
 

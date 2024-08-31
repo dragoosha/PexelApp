@@ -1,6 +1,5 @@
 package com.vladzah.repositories
 
-import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -9,11 +8,11 @@ import androidx.paging.map
 import com.vladzah.model.PhotoModel
 import com.vladzah.interfaces.PhotoRepository
 import com.vladzah.local.PexelDatabase
+import com.vladzah.local.PexelEntity
 import com.vladzah.mappers.toEntity
 import com.vladzah.mappers.toModel
 import com.vladzah.remote.PexelApi
 import com.vladzah.remote.PhotosRemoteMediator
-import com.vladzah.remote.dto.QueryPhotosDto
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -57,11 +56,17 @@ class PhotosRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getPhotoById(id: Int): Flow<PhotoModel> {
+    override suspend fun getPhotoByIdFromApi(id: Int): Flow<PhotoModel> {
+        return flow {
+            val photoModel = pexelApi.getPhotoById(id = id).toEntity().toModel()
+            emit(photoModel)
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override suspend fun getPhotoByIdFromDb(id: Int): Flow<PhotoModel> {
         return withContext(Dispatchers.IO) {
-            Log.d("NullParametr", "$id")
-            return@withContext pexelDatabase.pexelDao.getFromDbById(id).map { photoEntity ->
-                photoEntity.toModel()
+            return@withContext pexelDatabase.pexelDao.getFromDbById(id).map { value: PexelEntity ->
+                value.toModel()
             }
         }
     }
