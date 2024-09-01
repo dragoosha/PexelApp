@@ -1,7 +1,7 @@
 package com.vladzah.pexelapp.models
 
 data class TopicUiModel (
-    val label: String,
+    var label: String,
     val isSelected: Boolean
 )
 

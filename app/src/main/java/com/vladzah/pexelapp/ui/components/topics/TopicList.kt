@@ -7,10 +7,12 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,27 +29,32 @@ import com.vladzah.pexelapp.ui.theme.PexelAppTheme
 @Composable
 fun TopicList(
     list: List<TopicUiModel>,
-    query: String,
     onClick: (TopicUiModel) -> Unit
 ) {
-    val updatedList = list.map { topic ->
-        topic.copy(isSelected = topic.label.equals(query, ignoreCase = true))
+    val listState = rememberLazyListState()
+
+    LaunchedEffect(list) {
+        val selectedIndex = list.indexOfFirst { it.isSelected }
+        if (selectedIndex != -1) {
+            listState.animateScrollToItem(selectedIndex)
+        }
     }
 
     LazyRow(
         modifier = Modifier
-            .padding(horizontal = 24.dp, vertical = 12.dp)
+            .padding(horizontal = 24.dp, vertical = 12.dp),
+        state = listState
     ) {
-        items(updatedList.size) { index ->
+        items(list.size) { index ->
             Topic(
-                topic = updatedList[index],
+                topic = list[index],
                 onClick = { selectedTopic ->
                     selectedTopic.isSelected != selectedTopic.isSelected
                     onClick(selectedTopic)
                 }
             )
 
-            if (index != updatedList.lastIndex) {
+            if (index != list.lastIndex) {
                 Spacer(Modifier.width(12.dp))
             }
         }

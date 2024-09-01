@@ -81,6 +81,7 @@ fun HomeScreenLayout(
             query = query,
             onClick = { topic ->
                 query = topic.label
+                viewModel.checkAndMoveTitle(query)
                 viewModel.onEvent(HomeScreenEvents.onNewQuery(query))
             }
         )
