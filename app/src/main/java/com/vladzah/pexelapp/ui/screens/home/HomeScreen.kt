@@ -13,10 +13,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -28,7 +26,6 @@ import com.vladzah.pexelapp.ui.components.bars.ProgressBar
 import com.vladzah.pexelapp.ui.components.search.SearchBarComponent
 import com.vladzah.pexelapp.ui.components.topics.TopicList
 import com.vladzah.pexelapp.ui.navigation.NavigationItem
-import com.vladzah.pexelapp.ui.theme.PexelAppTheme
 import com.vladzah.pexelapp.utils.Strings
 import com.vladzah.pexelapp.viewmodels.HomeScreenViewModel
 
@@ -68,17 +65,20 @@ fun HomeScreenLayout(
             mutableStateOf("")
         }
 
+        var isActiveSearch by remember { mutableStateOf(false) }
+
         SearchBarComponent(
             query = query,
             onQueryChange = { newData ->
                 query = newData
                 viewModel.onEvent(HomeScreenEvents.onNewQuery(query))
-            }
+            },
+            isActiveSearch = isActiveSearch,
+            onActiveChange = { isActive -> isActiveSearch = isActive }
         )
 
         TopicList(
             list = titles,
-            query = query,
             onClick = { topic ->
                 query = topic.label
                 viewModel.checkAndMoveTitle(query)

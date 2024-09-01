@@ -1,6 +1,5 @@
 package com.vladzah.pexelapp.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vladzah.pexelapp.events.DetailedScreenEvents
@@ -59,9 +58,7 @@ class DetailsScreenViewModel @Inject constructor(
 
     private fun toggleBookmarkStatus(photo: PhotoUiModel) {
         viewModelScope.launch {
-            Log.d("toggleBookmarkStatus", " ${photo.isBookmarked}")
             val isBookmarked = !photo.isBookmarked
-            Log.d("toggleBookmarkStatus", " ${isBookmarked}")
             toggleBookmarkStatusUseCase.execute(photo.id, isBookmarked)
         }
     }

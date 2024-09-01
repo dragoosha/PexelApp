@@ -18,7 +18,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
@@ -73,7 +72,8 @@ fun ChatScreenLayout(
             )
     ) {
         LazyColumn(
-            reverseLayout = true,
+            state = state,
+            reverseLayout = false,
             modifier = Modifier
                 .weight(1f)
                 .padding(24.dp)
@@ -136,7 +136,6 @@ fun MessageBubble(message: MessageUi) {
 
     val modifier: Modifier = if (message.isClosingType) Modifier.drawBehind {
         val cornerRadius = 8.dp.toPx()
-        val triangleHeight = 5.dp.toPx()
         val triangleWidth = 20.dp.toPx()
         val padding = 8.dp.toPx()
         val trianglePath = Path().apply {

@@ -3,7 +3,6 @@ package com.vladzah.mappers
 import com.vladzah.model.PhotoModel
 import com.vladzah.local.PexelEntity
 import com.vladzah.remote.dto.PhotoDto
-import com.vladzah.remote.dto.QueryPhotosDto
 
 internal fun PhotoDto.toEntity() : PexelEntity {
 

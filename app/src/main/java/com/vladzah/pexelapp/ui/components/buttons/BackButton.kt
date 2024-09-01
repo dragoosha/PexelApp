@@ -15,7 +15,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.vladzah.pexelapp.ui.theme.PexelAppTheme
 import com.vladzah.pexelapp.utils.Icons
-import com.vladzah.pexelapp.utils.Strings
 
 @Composable
 fun BackButton(

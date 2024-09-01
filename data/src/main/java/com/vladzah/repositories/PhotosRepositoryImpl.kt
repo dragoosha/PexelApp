@@ -1,6 +1,5 @@
 package com.vladzah.repositories
 
-import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -17,8 +16,6 @@ import com.vladzah.remote.PexelApi
 import com.vladzah.remote.PhotosRemoteMediator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
@@ -76,11 +73,7 @@ class PhotosRepositoryImpl @Inject constructor(
     }
 
     override suspend fun toggleBookmarkStatus(id: Int, isBookmarked: Boolean) {
-        Log.d("toggleBookmarkStatus2", " ${isBookmarked}" )
         pexelDatabase.pexelDao.toggleBookmarkStatus(id, isBookmarked)
-        pexelDatabase.pexelDao.getFromDbById(id).collect{
-            Log.d("toggleBookmarkStatus3", " ${it.isBookmarked}")
-        }
     }
 
     override suspend fun getBookmarks(): Flow<PagingData<PhotoModel>> {

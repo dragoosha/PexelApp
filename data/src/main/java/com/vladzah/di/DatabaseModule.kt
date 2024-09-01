@@ -6,15 +6,12 @@ import com.vladzah.local.PexelDao
 import com.vladzah.local.PexelDatabase
 import com.vladzah.remote.PexelApi
 import com.vladzah.remote.interceptors.HeaderInterceptor
-import com.vladzah.remote.interceptors.cacheInterceptor
-import com.vladzah.remote.interceptors.loggingInterceptor
 import com.vladzah.remote.interceptors.retryInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import okhttp3.Cache
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
