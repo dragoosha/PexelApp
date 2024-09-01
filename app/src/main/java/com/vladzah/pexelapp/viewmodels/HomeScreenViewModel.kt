@@ -1,5 +1,6 @@
 package com.vladzah.pexelapp.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -13,11 +14,14 @@ import com.vladzah.pexelapp.models.toUiModel
 import com.vladzah.usecases.getUsecases.GetPhotosUsecase
 import com.vladzah.usecases.getUsecases.GetTitleUsecase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -35,6 +39,9 @@ class HomeScreenViewModel @Inject constructor(
 
     private val _titles = MutableStateFlow<List<TopicUiModel>>(emptyList())
     val titles: StateFlow<List<TopicUiModel>> = _titles
+
+    private val _isLoading = MutableStateFlow(true)
+    val isLoading: StateFlow<Boolean> = _isLoading
 
     init {
         observePhotos()
@@ -54,12 +61,14 @@ class HomeScreenViewModel @Inject constructor(
         _query.value = newQuery
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     private fun observePhotos() {
         viewModelScope.launch {
             query
                 .flatMapLatest { queryValue ->
                     getPhotosUsecase.execute(queryValue)
                         .map { pagingData ->
+                            Log.d("MainViewModel" , "$pagingData")
                             pagingData.map { photoModel ->
                                 photoModel.toUiModel()
                             }
@@ -70,6 +79,12 @@ class HomeScreenViewModel @Inject constructor(
                     _photos.value = transformedPagingData
                 }
         }
+
+        updateIsLoading()
+    }
+
+    private fun updateIsLoading() {
+        _isLoading.value = false
     }
 
     fun onEvent(event: HomeScreenEvents) {

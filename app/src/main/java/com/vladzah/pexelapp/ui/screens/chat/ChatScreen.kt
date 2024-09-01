@@ -37,12 +37,12 @@ import androidx.navigation.NavController
 import com.vladzah.pexelapp.events.ChatScreenEvents
 import com.vladzah.pexelapp.models.MessageUi
 import com.vladzah.pexelapp.ui.theme.PexelAppTheme
-import com.vladzah.pexelapp.viewmodels.ChatViewModel
+import com.vladzah.pexelapp.viewmodels.ChatScreenViewModel
 
 @Composable
 fun ChatScreen(
     navController: NavController,
-    viewModel: ChatViewModel = hiltViewModel()
+    viewModel: ChatScreenViewModel = hiltViewModel()
 ) {
 
     val messages = viewModel.messages.collectAsState()

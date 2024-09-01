@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ChatViewModel @Inject constructor()
+class ChatScreenViewModel @Inject constructor()
 : ViewModel() {
     private val _messages = MutableStateFlow<List<MessageUi>>(emptyList())
     val messages: StateFlow<List<MessageUi>> = _messages

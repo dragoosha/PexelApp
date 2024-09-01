@@ -55,7 +55,10 @@ android {
 dependencies {
     implementation(project(":domain"))
     implementation(project(":data"))
-    
+
+    implementation ("com.google.accompanist:accompanist-navigation-animation:0.30.1")
+
+
     //Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
 
