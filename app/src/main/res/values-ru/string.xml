@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PexelApp</string>
+    <string name="home">Дом</string>
+    <string name="chat">Чат</string>
+    <string name="no_data_available">Данные не доступны</string>
+    <string name="no_bookmark">Вы не добавили закладок</string>
+    <string name="try_again">Побробуйте еще раз</string>
+    <string name="explore">Поиск</string>
+    <string name="error_400">Плохой запрос. Сервер не понимает запрос.</string>
+    <string name="error_401">Неавтаризирован. Проверьте данные</string>
+    <string name="error_403">Доступ запрещен.</string>
+    <string name="error_404">Не найдено.</string>
+    <string name="error_500">Неизвестная ошибка.</string>
+    <string name="error_unknown_host">Нет подключения к интернету.</string>
+    <string name="error_timeout">Время ожидание превышено. Повторите попытку позже</string>
+    <string name="back_button">Кнопка назад</string>
+    <string name="download">Скачать</string>
+    <string name="bookmark">Закладка</string>
+</resources>
