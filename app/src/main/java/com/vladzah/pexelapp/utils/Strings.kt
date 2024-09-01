@@ -1,7 +1,5 @@
 package com.vladzah.pexelapp.utils
 
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.res.stringResource
 import com.vladzah.pexelapp.R
 
 object Strings {

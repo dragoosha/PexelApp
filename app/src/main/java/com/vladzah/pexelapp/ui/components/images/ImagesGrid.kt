@@ -1,6 +1,5 @@
 package com.vladzah.pexelapp.ui.components.images
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -58,6 +57,7 @@ fun ImagesGrid(
                 }
             }
         }
+        
         NoDataStub(
             errorMessage = errorMessage,
             photosList = photosList,
@@ -95,7 +95,6 @@ fun NoDataStub(
                     }
 
                     Toast.makeText(context, "Error: $errorMessage", Toast.LENGTH_LONG).show()
-                    Log.e("PhotosLoadError", "Error loading photos: $errorMessage")
                 }
             }
 

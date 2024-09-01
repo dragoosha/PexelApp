@@ -1,16 +1,14 @@
 package com.vladzah.pexelapp.ui.components.search
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.SearchBar
-import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -23,28 +21,28 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.vladzah.pexelapp.ui.theme.PexelAppTheme
-import com.vladzah.pexelapp.utils.Icons.SearchIcon
-
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchBarComponent(
     query: String,
     onQueryChange: (String) -> Unit,
-) {
-    var isActiveSearch by remember { mutableStateOf(false) }
+    isActiveSearch: Boolean,
+    onActiveChange: (Boolean) -> Unit,
+    )
+{
+    var localIsActiveSearch by remember { mutableStateOf(isActiveSearch) }
     val debouncePeriod = 500L
     val coroutineScope = rememberCoroutineScope()
 
     LaunchedEffect(query) {
-        if (isActiveSearch && query.isNotEmpty()) {
+        if (localIsActiveSearch && query.isNotEmpty()) {
             coroutineScope.launch {
                 delay(debouncePeriod)
                 onQueryChange(query)
@@ -52,53 +50,57 @@ fun SearchBarComponent(
         }
     }
 
-    SearchBar(
+    LaunchedEffect(isActiveSearch) {
+        localIsActiveSearch = isActiveSearch
+    }
+
+    Box(
         modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight(0.07f)
             .padding(horizontal = 24.dp, vertical = 12.dp)
-            .clip(RoundedCornerShape(100.dp)),
-        query = query,
-        onQueryChange = onQueryChange,
-        onSearch = {
-            isActiveSearch = false
-            onQueryChange(query)
-        },
-        active = isActiveSearch,
-        onActiveChange = { isActiveSearch = true },
-        placeholder = { Text(text = "Search") },
-        leadingIcon = {
-            Icon(
-                painter = SearchIcon,
-                contentDescription = "search icon",
-                tint = Color.Unspecified
-            )
-        },
-        colors = SearchBarDefaults.colors(
-            containerColor = MaterialTheme.colorScheme.secondaryContainer,
-            dividerColor = Color.LightGray,
-            inputFieldColors = TextFieldDefaults.colors(
-                cursorColor = Color.Black
-            ),
-        ),
-        trailingIcon = {
-            if (isActiveSearch) {
-                Icon(
-                    imageVector = Icons.Default.Close,
-                    contentDescription = "close",
-                    modifier = Modifier.clickable {
-                        if (query.isNotEmpty()) {
-                            onQueryChange("")
-                        } else {
-                            isActiveSearch = false
-                        }
-                    }
-                )
-            }
-        }
     ) {
+        TextField(
+            value = query,
+            onValueChange = { newQuery ->
+                onQueryChange(newQuery)
+                if (!localIsActiveSearch) onActiveChange(true)
+            },
+            placeholder = {
+                Text(text = "Search")
+            },
+            leadingIcon = {
+                Icon(
+                    painter = com.vladzah.pexelapp.utils.Icons.SearchIcon,
+                    contentDescription = "search icon",
+                    tint = Color.Unspecified
+                )
+            },
+            trailingIcon = {
+                if (localIsActiveSearch && query.isNotEmpty()) {
+                    Icon(
+                        imageVector = Icons.Default.Close,
+                        contentDescription = "clear",
+                        modifier = Modifier.clickable {
+                            onQueryChange("")
+                        }
+                    )
+                }
+            },
+            colors = TextFieldDefaults.colors(
+                cursorColor = Color.Black,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent,
+                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                errorContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
+            ),
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(100.dp))
+                .background(MaterialTheme.colorScheme.secondaryContainer)        )
     }
 }
+
 
 
 @Preview(showBackground = true)
@@ -106,7 +108,9 @@ fun SearchBarComponent(
 fun PreviewSearch() {
     PexelAppTheme(dynamicColor = false) {
         SearchBarComponent(
-            "", {}
+        query = "",
+        onQueryChange = {},
+            true, {}
         )
     }
 }

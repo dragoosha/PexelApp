@@ -6,7 +6,6 @@ import com.vladzah.model.PhotoModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-
 interface GetPhotosUsecase {
     suspend fun execute(query:String) : Flow<PagingData<PhotoModel>>
 

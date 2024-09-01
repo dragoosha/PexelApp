@@ -1,6 +1,5 @@
 package com.vladzah.pexelapp.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -20,8 +19,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -100,7 +97,6 @@ class HomeScreenViewModel @Inject constructor(
                 .flatMapLatest { queryValue ->
                     getPhotosUsecase.execute(queryValue)
                         .map { pagingData ->
-                            Log.d("MainViewModel" , "$pagingData")
                             pagingData.map { photoModel ->
                                 photoModel.toUiModel()
                             }
@@ -122,9 +118,10 @@ class HomeScreenViewModel @Inject constructor(
     fun onEvent(event: HomeScreenEvents) {
         when(event){
             is HomeScreenEvents.onNewQuery -> setQuery(event.query)
-            is HomeScreenEvents.onExploreClicked -> observePhotos()
+            is HomeScreenEvents.onExploreClicked -> {
+                observePhotos()
+            }
             is HomeScreenEvents.onRetryClicked -> observePhotos()
-            else -> {}
         }
     }
 

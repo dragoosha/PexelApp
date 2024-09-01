@@ -1,7 +1,6 @@
 package com.vladzah.pexelapp.utils
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.painter.Painter

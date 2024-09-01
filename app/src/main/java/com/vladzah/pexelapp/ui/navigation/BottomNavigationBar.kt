@@ -1,6 +1,5 @@
 package com.vladzah.pexelapp.ui.navigation
 
-import android.util.Log
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -15,7 +14,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.vladzah.pexelapp.ui.theme.Black
 import com.vladzah.pexelapp.ui.theme.Red
-
 
 @Composable
 fun BottomNavigationBar(
