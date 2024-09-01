@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">PexelApp</string>
     <string name="home">Home</string>
+    <string name="chat">Chat</string>
     <string name="no_data_available">No data available</string>
     <string name="no_bookmark">You haven`t saved anything yet</string>
     <string name="try_again">Try again</string>

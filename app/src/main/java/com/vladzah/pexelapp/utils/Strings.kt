@@ -10,6 +10,9 @@ object Strings {
     val BookmarkString
         get() = R.string.bookmark
 
+    val ChatString
+        get() = R.string.chat
+
     val Error400
         get() = R.string.error_400
     val Error401

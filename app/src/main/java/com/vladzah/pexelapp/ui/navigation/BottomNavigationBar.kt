@@ -23,7 +23,8 @@ fun BottomNavigationBar(
 ){
     val items = listOf(
         NavigationItem.WithIcons.Home,
-        NavigationItem.WithIcons.Bookmark
+        NavigationItem.WithIcons.Bookmark,
+        NavigationItem.WithIcons.Chat,
     )
 
     BottomNavigation(

@@ -11,6 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.vladzah.pexelapp.models.PhotoUiModel
 import com.vladzah.pexelapp.ui.screens.bookmarks.BookmarksScreen
+import com.vladzah.pexelapp.ui.screens.chat.ChatScreen
 import com.vladzah.pexelapp.ui.screens.details.DetailsScreen
 import com.vladzah.pexelapp.ui.screens.home.HomeScreen
 
@@ -28,6 +29,7 @@ fun AppNavigation() {
         ) {
             composable(NavigationItem.WithIcons.Home.route) { HomeScreen(navController) }
             composable(NavigationItem.WithIcons.Bookmark.route) { BookmarksScreen(navController) }
+            composable(NavigationItem.WithIcons.Chat.route) {ChatScreen(navController)}
             composable(
                 route = "details/{id}/?source={source}",
                 arguments = listOf(
