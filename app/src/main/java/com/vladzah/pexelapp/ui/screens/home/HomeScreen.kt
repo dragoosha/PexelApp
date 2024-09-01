@@ -105,11 +105,3 @@ fun HomeScreenLayout(
 
     }
 }
-
-@Preview
-@Composable
-fun PreviewHome () {
-    PexelAppTheme(dynamicColor = false) {
-        HomeScreen(navController = rememberNavController())
-    }
-}
