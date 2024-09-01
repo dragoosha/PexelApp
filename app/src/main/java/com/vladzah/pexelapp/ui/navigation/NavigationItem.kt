@@ -1,7 +1,10 @@
 package com.vladzah.pexelapp.ui.navigation
 
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import com.vladzah.pexelapp.utils.Icons
 import com.vladzah.pexelapp.utils.Strings
 
@@ -22,7 +25,14 @@ sealed class NavigationItem(val route: String) {
             route = "bookmark",
             iconActive = { Icons.BookMarkActive },
             iconInactive = { Icons.BookMarkInactive },
-            title = Strings.HomeString
+            title = Strings.BookmarkString
+        )
+
+        object Chat: WithIcons(
+            route = "chat",
+            iconActive = {Icons.ChatActiveIcon},
+            iconInactive = {Icons.ChatActiveIcon},
+            title = Strings.ChatString
         )
     }
     object Details: NavigationItem("details")
