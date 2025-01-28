@@ -45,7 +45,7 @@ To run this project locally, make sure you have:
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/yourusername/PexelApp.git
+    git clone https://github.com/dragoosha/PexelApp.git
     ```
 
 2. **Open the project in Android Studio:**
