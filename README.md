@@ -2,6 +2,11 @@
 
 PexelApp is an Android application that allows users to explore and search for stunning, high-quality stock photos and videos, sourced from the Pexels API. With a seamless browsing experience, users can discover free, royalty-free media shared by creators and use them in their projects.
 
+## Languages
+- [English](README.md)
+- [Русский](README_ru.md)
+- [German](README_de.md)
+
 ## Features
 
 - **Browse High-Quality Media:** Search and explore a wide variety of images and videos curated from the Pexels API.
